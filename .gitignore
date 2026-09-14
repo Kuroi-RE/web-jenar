@@ -44,6 +44,11 @@ AGENTS.md
 
 MIGRATION_PLAN.md
 
+# konfigurasi docker (tidak di-publish ke repo)
+Dockerfile
+.dockerignore
+docker-compose.yml
+
 
 # Foto yang diunggah lewat panel admin (runtime)
 /public/uploads/
