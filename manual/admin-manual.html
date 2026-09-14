@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Panduan Admin — Pengaturan Website Desa</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  :root {
+    --g950:#052e22; --g900:#064e3b; --g800:#065f46; --g700:#047857;
+    --g100:#d1fae5; --g50:#ecfdf5; --gold:#d97706; --gold-soft:#fffbeb;
+    --ink:#0f172a; --muted:#475569; --line:#d7dee6; --rose:#e11d48;
+  }
+  html,body { margin:0; padding:0; background:#cbd5e1; color:var(--ink);
+    font-family:Arial,"Segoe UI",sans-serif; font-size:10.3pt; line-height:1.5; }
+
+  /* Halaman A4: margin dalam konsisten kiri=kanan, atas=bawah seimbang. */
+  .page { position:relative; width:210mm; height:297mm; margin:0 auto;
+    padding:16mm 18mm 15mm; background:#fff; overflow:hidden;
+    page-break-after:always; break-after:page; }
+  .page:last-child { page-break-after:auto; }
+
+  .page-head { border-bottom:1.5px solid var(--g700); padding-bottom:3.5mm; margin-bottom:5mm; }
+  .kicker { display:inline-block; margin-bottom:1.5mm; color:var(--g700);
+    font-size:7.5pt; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+  h1 { margin:0; font-size:21pt; line-height:1.12; letter-spacing:-.01em; color:var(--g950); }
+  h2 { margin:5mm 0 2mm; font-size:13pt; color:var(--g900); }
+  h3 { margin:3.5mm 0 1.5mm; font-size:10.8pt; color:var(--ink); }
+  p { margin:0 0 2.6mm; text-align:justify; }
+  .lead { color:var(--muted); font-size:11pt; line-height:1.6; text-align:justify; }
+  strong { color:var(--ink); }
+  code { padding:.2mm 1.2mm; border-radius:1mm; background:#eef2f7;
+    font-family:Consolas,monospace; font-size:9pt; color:var(--g800); }
+  ul,ol { margin:1.5mm 0 3mm; padding-left:6mm; }
+  li { margin:1.2mm 0; text-align:left; }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
+  .card { border:1px solid var(--line); border-radius:3mm; padding:3.5mm 4mm; background:#fff; break-inside:avoid; }
+  .card h3 { margin-top:0; }
+  .card.green { border-color:#a7f3d0; background:var(--g50); }
+  .card.gold  { border-color:#fde68a; background:var(--gold-soft); }
+  .card.rose  { border-color:#fecdd3; background:#fff1f2; }
+
+  .note { margin:3mm 0; padding:3mm 3.5mm; border-left:1.4mm solid var(--g700);
+    border-radius:0 2mm 2mm 0; background:var(--g50); text-align:justify; }
+  .note.warn   { border-left-color:var(--gold); background:var(--gold-soft); }
+  .note.danger { border-left-color:var(--rose); background:#fff1f2; }
+  .note p { margin:0; text-align:justify; }
+
+  .steps { counter-reset:step; list-style:none; padding:0; margin:2mm 0 3mm; }
+  .steps li { counter-increment:step; position:relative; min-height:7mm;
+    padding:.6mm 0 2mm 10mm; text-align:left; }
+  .steps li::before { content:counter(step); position:absolute; left:0; top:0;
+    display:grid; place-items:center; width:7mm; height:7mm; border-radius:50%;
+    background:var(--g700); color:#fff; font-size:8pt; font-weight:800; }
+
+  .checklist { list-style:none; padding-left:0; margin:1.5mm 0 3mm; }
+  .checklist li { position:relative; padding-left:6.5mm; text-align:left; }
+  .checklist li::before { content:"\2713"; position:absolute; left:0; color:var(--g700); font-weight:800; }
+
+  table.tbl { width:100%; border-collapse:collapse; margin:2mm 0 3mm; font-size:9.2pt; }
+  table.tbl th, table.tbl td { border:1px solid var(--line); padding:2mm 2.6mm; vertical-align:top; text-align:left; }
+  table.tbl th { background:var(--g900); color:#fff; font-size:8.6pt; }
+  table.tbl tr:nth-child(even) td { background:#f6f9fb; }
+
+  .fig { margin:3mm 0 0; break-inside:avoid; }
+  .frame { width:100%; border:1px solid #cbd5e1; border-radius:2.5mm; overflow:hidden;
+    background:#f1f5f9; box-shadow:0 1.2mm 3.5mm rgba(15,23,42,.10); }
+  .frame img { display:block; width:100%; height:100%; object-position:top; }
+  figcaption { margin-top:1.5mm; color:#64748b; font-size:7.9pt; text-align:center; }
+
+  .route { color:var(--g800); font-family:Consolas,monospace; font-size:8.6pt; }
+  .badge { display:inline-block; min-width:5.5mm; padding:.2mm 1.8mm; margin-right:1mm;
+    border-radius:3mm; background:var(--rose); color:#fff; font-size:8pt; font-weight:800; text-align:center; }
+  .kbd { display:inline-block; padding:.3mm 1.5mm; border:1px solid #cbd5e1; border-bottom-width:2px;
+    border-radius:1.2mm; background:#f8fafc; font-weight:700; font-size:8.5pt; }
+
+  .page-foot { position:absolute; left:18mm; right:18mm; bottom:8mm;
+    display:flex; justify-content:space-between; border-top:1px solid #e5e7eb;
+    padding-top:2.2mm; color:#6b7280; font-size:7.6pt; }
+
+  /* Daftar isi */
+  .toc { display:grid; grid-template-columns:1fr 1fr; gap:1.5mm 10mm; margin-top:4mm; }
+  .toc div { display:flex; justify-content:space-between; gap:4mm; padding:1.8mm 0;
+    border-bottom:1px dotted #9aa6b2; }
+  .toc b { color:var(--g900); font-weight:700; }
+
+  /* Sampul */
+  .cover { color:#fff; padding:0; background:linear-gradient(150deg,var(--g950),var(--g800)); }
+  .cover::before { content:""; position:absolute; inset:auto -40mm -40mm auto;
+    width:150mm; height:150mm; border:1px solid rgba(255,255,255,.14); border-radius:50%;
+    box-shadow:0 0 0 22mm rgba(255,255,255,.035),0 0 0 44mm rgba(255,255,255,.022); }
+  .cover-in { position:relative; z-index:1; height:100%; padding:26mm 20mm 20mm; display:flex; flex-direction:column; }
+  .cover-mark { display:grid; place-items:center; width:20mm; height:20mm; border-radius:5mm;
+    background:var(--gold); color:var(--g950); font-size:23pt; font-weight:900; }
+  .cover .label { margin-top:26mm; color:#fde68a; font-size:10pt; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+  .cover h1 { margin-top:4mm; max-width:160mm; color:#fff; font-size:34pt; line-height:1.06; }
+  .cover .sub { margin-top:7mm; max-width:145mm; color:#d1fae5; font-size:14.5pt; line-height:1.55; text-align:left; }
+  .cover-meta { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:7mm;
+    padding-top:8mm; border-top:1px solid rgba(255,255,255,.25); color:#d1fae5; font-size:9pt; }
+  .cover-meta strong { display:block; margin-bottom:1mm; color:#fff; }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-in">
+    <div class="cover-mark">&#9881;</div>
+    <div class="label">Dokumen Panduan Resmi</div>
+    <h1>Panduan Admin<br>Pengaturan Website Desa</h1>
+    <p class="sub">Petunjuk lengkap dan bergambar untuk mengelola seluruh konten website desa melalui Panel Admin — dari login hingga menyimpan setiap perubahan.</p>
+    <div class="cover-meta">
+      <div><strong>Versi Dokumen</strong>1.0 &middot; 20 Agustus 2026</div>
+      <div><strong>Alamat Panel</strong>http://localhost:3000/admin</div>
+      <div><strong>Pengguna Sasaran</strong>Administrator / Operator Desa</div>
+      <div><strong>Format</strong>Manual book &middot; A4</div>
+    </div>
+  </div>
+</section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Tentang Dokumen</span><h1>Tujuan & Cara Membaca</h1></header>
+    <main class="page-body">
+  <p class="lead">Dokumen ini khusus membahas <strong>pengaturan website</strong> melalui Panel Admin. Setiap menu dijelaskan dengan tangkapan layar dan penanda <span class="badge">1</span> panah merah agar mudah diikuti oleh operator desa, termasuk yang mengisi website dari awal (kosong).</p>
+  <div class="grid-2">
+    <div class="card green"><h3>Yang dibahas</h3><ul><li>Login dan navigasi Panel Admin.</li><li>Pengaturan Umum, Hero, Berita.</li><li>Layanan, Perangkat, APBDes, Statistik.</li><li>Profil, PPID, Produk Hukum, Galeri.</li></ul></div>
+    <div class="card green"><h3>Prinsip penting</h3><ul><li>Semua konten dapat dikustomisasi.</li><li>Daftar bisa <strong>ditambah</strong> &amp; <strong>dihapus</strong>.</li><li>Selalu klik <strong>Simpan</strong> di tiap menu.</li><li>Periksa hasil di website publik.</li></ul></div>
+  </div>
+  <h2>Konvensi Penanda</h2>
+  <table class="tbl">
+    <tr><th style="width:42mm">Penanda</th><th>Arti</th></tr>
+    <tr><td>Bingkai / panah merah</td><td>Tombol atau kolom penting yang perlu diperhatikan pada langkah tersebut.</td></tr>
+    <tr><td><span class="badge">1</span> nomor merah</td><td>Urutan tindakan sesuai penjelasan di bawah gambar.</td></tr>
+    <tr><td>Teks hijau <code>seperti ini</code></td><td>Nama menu, alamat halaman (route), atau kata kunci sistem.</td></tr>
+    <tr><td>Kotak kuning</td><td>Catatan penting sebelum menyimpan data.</td></tr>
+  </table>
+  <div class="note danger"><p><strong>Keamanan.</strong> Akun <code>admin / admin123</code> hanya untuk pengembangan. Sebelum website dipublikasikan, ganti kata sandi dan <code>AUTH_SECRET</code>, gunakan HTTPS, dan jangan bagikan akun kepada pihak tak berwenang.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 2</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Daftar Isi</span><h1>Isi Panduan</h1></header>
+    <main class="page-body">
+  <div class="toc">
+    <div><b>1. Tujuan &amp; cara membaca</b><span>2</span></div><div><b>10. APBDes (Rupiah)</b><span>11</span></div>
+    <div><b>2. Daftar isi</b><span>3</span></div><div><b>11. Statistik &amp; peta</b><span>12</span></div>
+    <div><b>3. Login admin</b><span>4</span></div><div><b>12. Profil desa</b><span>13</span></div>
+    <div><b>4. Dasbor &amp; navigasi</b><span>5</span></div><div><b>13. PPID</b><span>14</span></div>
+    <div><b>5. Pengaturan Umum</b><span>6</span></div><div><b>14. Produk Hukum</b><span>15</span></div>
+    <div><b>6. Tautan &amp; tombol tambah</b><span>7</span></div><div><b>15. Galeri</b><span>16</span></div>
+    <div><b>7. Hero beranda</b><span>8</span></div><div><b>16. Tambah/hapus &amp; unggah</b><span>17</span></div>
+    <div><b>8. Berita</b><span>9</span></div><div><b>17. Keluar &amp; keamanan</b><span>18</span></div>
+    <div><b>9. Layanan</b><span>10</span></div><div><b>18. Pemecahan masalah</b><span>19</span></div>
+  </div>
+  <h2>Alur Kerja yang Disarankan</h2>
+  <ol class="steps">
+    <li>Masuk ke Panel Admin melalui halaman login.</li>
+    <li>Lengkapi <strong>Pengaturan Umum</strong> lebih dulu (nama desa, kontak, tautan).</li>
+    <li>Isi konten per menu: Hero, Berita, Layanan, Perangkat, dan seterusnya.</li>
+    <li>Klik tombol <strong>Simpan</strong> pada setiap menu setelah selesai.</li>
+    <li>Buka <strong>Lihat Website</strong> untuk memastikan tampilan sudah benar.</li>
+    <li>Keluar (logout) setelah selesai, terutama di komputer bersama.</li>
+  </ol>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 3</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Langkah 1</span><h1>Login ke Panel Admin</h1></header>
+    <main class="page-body">
+  <p>Buka alamat <code>http://localhost:3000/admin/login</code> pada peramban, lalu ikuti urutan berikut sesuai penanda pada gambar.</p>
+  <figure class="fig">
+     <div class="frame" style="height:96mm">
+       <img src="shots-admin/login.jpg" alt="Gambar 1. Halaman login dengan urutan pengisian." style="object-fit:contain">
+     </div>
+     <figcaption>Gambar 1. Halaman login dengan urutan pengisian.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi <strong>Username</strong> dengan <code>admin</code>.</li>
+    <li>Isi <strong>Kata Sandi</strong> dengan <code>admin123</code>.</li>
+    <li>Klik tombol <strong>Masuk</strong>. Bila benar, halaman berpindah ke Dasbor.</li>
+  </ol>
+  <div class="note warn"><p><strong>Jika login gagal:</strong> periksa huruf besar/kecil, pastikan tidak ada spasi tambahan, dan tunggu beberapa menit apabila terlalu banyak percobaan gagal (sistem membatasi percobaan demi keamanan).</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 4</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Langkah 2</span><h1>Dasbor & Navigasi</h1></header>
+    <main class="page-body">
+  <p class="lead">Dasbor adalah pusat pengelolaan. Menu di sisi kiri membuka setiap pengaturan; tombol di kanan atas untuk membuka situs atau keluar.</p>
+  <figure class="fig">
+     <div class="frame" style="height:92mm">
+       <img src="shots-admin/dasbor.jpg" alt="Gambar 2. Dasbor: menu pengaturan, tombol Lihat Website, dan Keluar." style="object-fit:contain">
+     </div>
+     <figcaption>Gambar 2. Dasbor: menu pengaturan, tombol Lihat Website, dan Keluar.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div><h3>Menu samping</h3><p>Berisi seluruh pengaturan: Berita, Hero, Layanan, Perangkat, APBDes, Statistik, Profil, PPID, Produk Hukum, Galeri, dan Pengaturan Umum.</p></div>
+    <div><h3>Bagian atas</h3><p><strong>Lihat Website</strong> membuka halaman publik di tab baru untuk memeriksa hasil. <strong>Keluar</strong> mengakhiri sesi admin dengan aman.</p></div>
+  </div>
+  <div class="note"><p><strong>Urutan awal:</strong> mulai dari <strong>Pengaturan Umum</strong>. Nama desa yang diisi di sana otomatis dipakai pada judul Hero, Navbar, Footer, dan metadata seluruh halaman.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 5</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Pengaturan</span><h1>Pengaturan Umum</h1></header>
+    <main class="page-body">
+  <p>Menu <strong>Pengaturan Umum</strong> (<span class="route">/admin/pengaturan</span>) mengendalikan identitas dan informasi dasar yang tampil di seluruh website.</p>
+  <figure class="fig">
+     <div class="frame" style="height:88mm">
+       <img src="shots-admin/pengaturan.jpg" alt="Gambar 3. Identitas desa pada Pengaturan Umum." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 3. Identitas desa pada Pengaturan Umum.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div class="card"><h3>Identitas &amp; kontak</h3><ul><li>Nama Desa, Nama Resmi, Tagline</li><li>Wilayah, Slogan, URL Situs</li><li>Email, telepon, dan alamat</li></ul></div>
+    <div class="card"><h3>Informasi lain</h3><ul><li>Media sosial (Facebook, Instagram, YouTube)</li><li>Jam pelayanan &amp; istirahat</li><li>Teks Tentang Kami &amp; fakta singkat</li></ul></div>
+  </div>
+  <div class="note warn"><p><strong>Hati-hati:</strong> perubahan Nama Desa, URL, alamat, dan kontak memengaruhi banyak halaman sekaligus (metadata, sitemap, footer, kanal pengaduan). Pastikan penulisan sudah benar sebelum menyimpan.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 6</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Pengaturan</span><h1>Tautan Layanan & Tombol Tambah</h1></header>
+    <main class="page-body">
+  <p>Pada bagian <strong>Tautan Layanan Eksternal</strong>, Anda dapat menambah tautan baru (SKM, SPAK, dll.) tanpa batas dan menghapusnya kembali.</p>
+  <figure class="fig">
+     <div class="frame" style="height:92mm">
+       <img src="shots-admin/pengaturan-tautan.jpg" alt="Gambar 4. Tautan pengaduan, tombol Tambah Tautan, dan Hapus." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 4. Tautan pengaduan, tombol Tambah Tautan, dan Hapus.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi <strong>Tautan Pengaduan</strong> untuk tombol &ldquo;Aduan Masyarakat&rdquo;.</li>
+    <li>Klik <strong>Tambah Tautan</strong> untuk menambah baris Nama + URL baru.</li>
+    <li>Klik <strong>Hapus</strong> pada baris untuk menghilangkannya.</li>
+    <li>Gunakan URL lengkap diawali <code>https://</code>. Baris dengan URL kosong diabaikan.</li>
+    <li>Gulir ke bawah lalu klik <strong>Simpan Pengaturan</strong> hingga muncul pesan berhasil.</li>
+  </ol>
+  <div class="note"><p><strong>Tampil di mana?</strong> Tautan layanan muncul pada bar atas Navbar dan tombol pada bagian Hero beranda.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 7</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Hero Beranda</h1></header>
+    <main class="page-body">
+  <p>Hero adalah area besar paling atas beranda. Menu <span class="route">/admin/hero</span> mengatur teks sambutan dan gambar carousel.</p>
+  <figure class="fig">
+     <div class="frame" style="height:82mm">
+       <img src="shots-admin/hero.jpg" alt="Gambar 5. Teks Hero: label, subjudul, dan deskripsi." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 5. Teks Hero: label, subjudul, dan deskripsi.</figcaption>
+   </figure>
+  <figure class="fig">
+     <div class="frame" style="height:70mm">
+       <img src="shots-admin/hero-slide.jpg" alt="Gambar 6. Slide gambar: unggah foto dan teks alternatif." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 6. Slide gambar: unggah foto dan teks alternatif.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div><h3>Teks Hero</h3><p>Isi label kecil, subjudul, dan deskripsi. <strong>Judul besar mengikuti Nama Desa</strong> dari Pengaturan Umum.</p></div>
+    <div><h3>Slide gambar</h3><p>Maksimal 6 slide. Unggah foto atau isi path gambar, lalu isi teks alternatif. Baris tanpa gambar diabaikan.</p></div>
+  </div>
+  <div class="note"><p>Klik <strong>Simpan Hero</strong>, lalu buka beranda untuk memeriksa hasil carousel.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 8</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Berita & Pengumuman</h1></header>
+    <main class="page-body">
+  <p>Menu Berita (<span class="route">/admin/berita</span>) untuk membuat, mengubah, dan menghapus berita.</p>
+  <figure class="fig">
+     <div class="frame" style="height:60mm">
+       <img src="shots-admin/berita-list.jpg" alt="Gambar 7. Daftar berita dan tombol Tambah Berita." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 7. Daftar berita dan tombol Tambah Berita.</figcaption>
+   </figure>
+  <figure class="fig">
+     <div class="frame" style="height:70mm">
+       <img src="shots-admin/berita-baru-isi.jpg" alt="Gambar 8. Isi berita (Markdown) dan tombol Terbitkan." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 8. Isi berita (Markdown) dan tombol Terbitkan.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div><h3>Kolom wajib</h3><ul><li>Judul &amp; Tanggal</li><li>Ringkasan</li><li>Isi Berita (Markdown)</li></ul></div>
+    <div><h3>Format Markdown</h3><ul><li><code>## Sub Judul</code></li><li><code>**tebal**</code>, <code>_miring_</code></li><li><code>- daftar</code>, <code>&gt; kutipan</code></li></ul></div>
+  </div>
+  <div class="note warn"><p><strong>Sebelum menghapus berita:</strong> tindakan tidak dapat dibatalkan dari panel. Salin teks/gambar yang masih diperlukan lebih dulu.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 9</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Layanan Unggulan</h1></header>
+    <main class="page-body">
+  <p>Menu Layanan (<span class="route">/admin/layanan</span>) mengatur kartu layanan pada beranda. Kartu dapat ditambah dan dihapus bebas.</p>
+  <figure class="fig">
+     <div class="frame" style="height:96mm">
+       <img src="shots-admin/layanan.jpg" alt="Gambar 9. Kartu layanan dengan tombol Hapus dan Tambah Layanan." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 9. Kartu layanan dengan tombol Hapus dan Tambah Layanan.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi <strong>Judul</strong>, Deskripsi, dan Tautan tiap kartu.</li>
+    <li>Klik <strong>Tambah Layanan</strong> untuk kartu baru.</li>
+    <li>Klik <strong>Hapus</strong> untuk menghilangkan kartu (minimal satu kartu tersisa).</li>
+    <li>Gunakan route internal seperti <code>/layanan#sop</code> atau URL lengkap.</li>
+    <li>Klik <strong>Simpan Layanan</strong>.</li>
+  </ol>
+  <div class="note"><p><strong>Catatan:</strong> ikon kartu dipertahankan otomatis oleh sistem sehingga tidak perlu diisi.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 10</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Perangkat Desa</h1></header>
+    <main class="page-body">
+  <p>Menu Perangkat (<span class="route">/admin/perangkat</span>) mengatur susunan aparatur desa beserta foto dan penanda Kepala Desa.</p>
+  <figure class="fig">
+     <div class="frame" style="height:96mm">
+       <img src="shots-admin/perangkat.jpg" alt="Gambar 10. Data perangkat dan checklist Kepala Desa (pilih satu)." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 10. Data perangkat dan checklist Kepala Desa (pilih satu).</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi <strong>Jabatan</strong> dan Nama (kosongkan nama bila belum ada pejabat).</li>
+    <li>Unggah foto potret yang rapi (opsional).</li>
+    <li>Centang <strong>Kepala Desa</strong> hanya pada satu perangkat.</li>
+    <li>Gunakan <strong>Tambah Perangkat</strong> / <strong>Hapus</strong> untuk mengatur daftar.</li>
+    <li>Klik <strong>Simpan Perangkat</strong>.</li>
+  </ol>
+  <div class="note warn"><p><strong>Satu Kepala Desa saja:</strong> setelah satu perangkat ditandai sebagai Kepala Desa, checklist pada perangkat lain otomatis dinonaktifkan. Hapus dulu centang tersebut untuk memindahkannya.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 11</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>APBDes — Input Rupiah</h1></header>
+    <main class="page-body">
+  <p>Menu APBDes (<span class="route">/admin/apbdes</span>) menampilkan ringkasan anggaran secara transparan. Semua kolom nominal <strong>otomatis diformat ke Rupiah</strong>.</p>
+  <figure class="fig">
+     <div class="frame" style="height:78mm">
+       <img src="shots-admin/apbdes.jpg" alt="Gambar 11. Ringkasan anggaran dengan format Rupiah otomatis." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 11. Ringkasan anggaran dengan format Rupiah otomatis.</figcaption>
+   </figure>
+  <figure class="fig">
+     <div class="frame" style="height:66mm">
+       <img src="shots-admin/apbdes-rincian.jpg" alt="Gambar 12. Rincian sumber pendapatan + tombol Tambah Sumber." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 12. Rincian sumber pendapatan + tombol Tambah Sumber.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Cukup ketik <strong>angka</strong> — sistem menambahkan &ldquo;Rp&rdquo; dan titik ribuan otomatis (mis. <code>1.759.314.000</code>).</li>
+    <li>Isi Tahun Anggaran, Total Pendapatan, dan Total Belanja.</li>
+    <li>Tambah/hapus rincian sumber (PAD, ADD, DD, BHP, BANPROV).</li>
+    <li>Klik <strong>Simpan APBDes</strong>.</li>
+  </ol>
+  <div class="note"><p><strong>Otomatis:</strong> defisit/surplus dan persentase grafik dihitung sistem. Tetap cocokkan angka dengan dokumen APBDes resmi.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 12</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Statistik & Peta</h1></header>
+    <main class="page-body">
+  <p>Menu Statistik (<span class="route">/admin/statistik</span>) mengatur data kependudukan dan lokasi peta yang tampil di beranda serta halaman Demografi.</p>
+  <figure class="fig">
+     <div class="frame" style="height:94mm">
+       <img src="shots-admin/statistik.jpg" alt="Gambar 13. Data kependudukan dan kueri peta." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 13. Data kependudukan dan kueri peta.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi Total Penduduk, Laki-laki, dan Perempuan.</li>
+    <li>Pastikan <strong>Laki-laki + Perempuan = Total Penduduk</strong>.</li>
+    <li>Isi Kueri Peta (nama &amp; alamat kantor desa) untuk embed Google Maps.</li>
+    <li>Klik <strong>Simpan Statistik</strong>, lalu periksa halaman Demografi.</li>
+  </ol>
+  <div class="note warn"><p><strong>Konsistensi angka:</strong> bila jumlah laki-laki dan perempuan tidak sama dengan total, grafik komposisi akan tampak keliru.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 13</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Profil Desa</h1></header>
+    <main class="page-body">
+  <p>Menu Profil (<span class="route">/admin/profil</span>) mengatur Visi &amp; Misi, Nilai Pelayanan, serta Tugas Pokok &amp; Fungsi.</p>
+  <figure class="fig">
+     <div class="frame" style="height:92mm">
+       <img src="shots-admin/profil.jpg" alt="Gambar 14. Visi & Misi pada menu Profil." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 14. Visi & Misi pada menu Profil.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div><h3>Visi &amp; Misi</h3><p>Isi visi dalam paragraf singkat. Pada Misi, tulis <strong>satu poin per baris</strong>.</p></div>
+    <div><h3>Nilai &amp; Tupoksi</h3><p>Gunakan <strong>Tambah Nilai</strong> / <strong>Tambah Jabatan</strong> untuk menambah. Rincian tugas ditulis satu per baris.</p></div>
+  </div>
+  <div class="note"><p>Klik <strong>Simpan Profil</strong>, lalu periksa submenu Profil di website (Visi-Misi, Struktur, Tupoksi).</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 14</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>PPID</h1></header>
+    <main class="page-body">
+  <p>Menu PPID (<span class="route">/admin/ppid</span>) mengelola informasi Pejabat Pengelola Informasi dan Dokumentasi.</p>
+  <figure class="fig">
+     <div class="frame" style="height:90mm">
+       <img src="shots-admin/ppid.jpg" alt="Gambar 15. Profil PPID dan bagian-bagian informasinya." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 15. Profil PPID dan bagian-bagian informasinya.</figcaption>
+   </figure>
+  <div class="grid-2">
+    <div><h3>Bagian utama</h3><ul><li>Profil PPID</li><li>Struktur PPID</li><li>Tugas &amp; Fungsi</li></ul></div>
+    <div><h3>Bagian lanjutan</h3><ul><li>Dasar Hukum (satu per baris)</li><li>Klasifikasi Informasi Publik</li><li>Tambah/hapus struktur &amp; kategori</li></ul></div>
+  </div>
+  <div class="note"><p>Klik <strong>Simpan PPID</strong> setelah selesai, lalu periksa halaman PPID publik.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 15</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Produk Hukum</h1></header>
+    <main class="page-body">
+  <p>Menu Produk Hukum (<span class="route">/admin/produk-hukum</span>) menampilkan daftar peraturan/keputusan beserta tautan dokumennya.</p>
+  <figure class="fig">
+     <div class="frame" style="height:96mm">
+       <img src="shots-admin/produk-hukum.jpg" alt="Gambar 16. Daftar produk hukum + tombol Tambah Dokumen." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 16. Daftar produk hukum + tombol Tambah Dokumen.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Isi Jenis (mis. Peraturan Desa), Nomor, dan Tahun.</li>
+    <li>Isi kolom <strong>Tentang</strong> (wajib; baris tanpa kolom ini diabaikan).</li>
+    <li>Isi Tautan Dokumen bila berkas sudah tersedia (boleh dikosongkan).</li>
+    <li>Gunakan <strong>Tambah Dokumen</strong> / <strong>Hapus</strong>, lalu klik <strong>Simpan Produk Hukum</strong>.</li>
+  </ol>
+  <div class="note warn"><p><strong>Periksa tautan:</strong> pastikan dokumen dapat diakses publik, bukan tautan privat yang meminta login.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 16</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Menu Konten</span><h1>Galeri</h1></header>
+    <main class="page-body">
+  <p>Menu Galeri (<span class="route">/admin/galeri</span>) mengatur foto kegiatan pada halaman Galeri publik.</p>
+  <figure class="fig">
+     <div class="frame" style="height:94mm">
+       <img src="shots-admin/galeri.jpg" alt="Gambar 17. Form foto galeri: unggah dan tombol Tambah Foto." style="object-fit:cover">
+     </div>
+     <figcaption>Gambar 17. Form foto galeri: unggah dan tombol Tambah Foto.</figcaption>
+   </figure>
+  <ol class="steps">
+    <li>Klik <strong>Unggah Foto</strong> atau isi path gambar.</li>
+    <li>Isi Judul, Kategori, dan Teks Alternatif yang deskriptif.</li>
+    <li>Gunakan <strong>Tambah Foto</strong> / <strong>Hapus</strong> untuk mengatur daftar.</li>
+    <li>Klik <strong>Simpan Galeri</strong>.</li>
+  </ol>
+  <div class="note"><p><strong>Contoh teks alternatif:</strong> &ldquo;Warga mengikuti musyawarah desa di balai desa&rdquo;, bukan sekadar &ldquo;foto kegiatan&rdquo;.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 17</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Fitur Umum</span><h1>Tambah/Hapus Baris & Unggah Gambar</h1></header>
+    <main class="page-body">
+  <p class="lead">Sebagian besar menu memakai pola yang sama sehingga mudah dipelajari sekali untuk semua.</p>
+  <div class="grid-2">
+    <div class="card green"><h3>Tombol Tambah</h3><p>Menambah satu baris/kartu kosong di bawah daftar. Dapat diklik berulang kali.</p></div>
+    <div class="card rose"><h3>Tombol Hapus</h3><p>Menghapus baris/kartu terkait. Pada daftar tertentu, minimal satu baris harus tersisa.</p></div>
+  </div>
+  <h2>Mengunggah Gambar</h2>
+  <table class="tbl">
+    <tr><th style="width:48mm">Ketentuan</th><th>Keterangan</th></tr>
+    <tr><td>Format</td><td>JPG/JPEG, PNG, WEBP, atau GIF.</td></tr>
+    <tr><td>Ukuran maksimum</td><td>5 MB per berkas. File kosong/format palsu ditolak.</td></tr>
+    <tr><td>Langkah</td><td>Klik <strong>Unggah Foto</strong> &rarr; pilih file &rarr; tunggu pratinjau &rarr; isi teks alternatif &rarr; Simpan.</td></tr>
+  </table>
+  <div class="note warn"><p><strong>Hak publikasi:</strong> pastikan foto tidak memuat data pribadi sensitif atau dokumen rahasia, dan telah memperoleh izin publikasi yang sesuai.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 18</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Keamanan</span><h1>Keluar & Pemeliharaan</h1></header>
+    <main class="page-body">
+  <h2>Keluar dengan Aman</h2>
+  <ol class="steps">
+    <li>Pastikan seluruh perubahan sudah <strong>disimpan</strong>.</li>
+    <li>Klik <strong>Lihat Website</strong> untuk memeriksa hasil bila perlu.</li>
+    <li>Klik <strong>Keluar</strong> dan pastikan halaman login muncul kembali.</li>
+    <li>Di komputer bersama, tutup seluruh tab peramban.</li>
+  </ol>
+  <div class="grid-2">
+    <div class="card rose"><h3>Hindari</h3><ul><li>Menyimpan kata sandi di komputer umum.</li><li>Membagikan akun ke grup publik.</li><li>Meninggalkan panel terbuka tanpa pengawasan.</li></ul></div>
+    <div class="card green"><h3>Lakukan berkala</h3><ul><li>Perbarui berita, kontak, jam layanan.</li><li>Uji tautan pengaduan/dokumen.</li><li>Cadangkan database &amp; folder unggahan.</li></ul></div>
+  </div>
+  <div class="note danger"><p><strong>Untuk produksi:</strong> administrator server wajib mengganti <code>ADMIN_PASSWORD</code> dan <code>AUTH_SECRET</code>, mengaktifkan HTTPS, serta membatasi akses lingkungan dan database.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 19</span></footer>
+  </section>
+
+<section class="page ">
+    <header class="page-head"><span class="kicker">Bantuan</span><h1>Pemecahan Masalah</h1></header>
+    <main class="page-body">
+  <table class="tbl">
+    <tr><th style="width:52mm">Masalah</th><th>Pemeriksaan / Solusi</th></tr>
+    <tr><td>Panel tidak terbuka</td><td>Pastikan server berjalan dan alamat <code>http://localhost:3000/admin</code> benar.</td></tr>
+    <tr><td>Login ditolak</td><td>Periksa kredensial &amp; huruf besar/kecil. Setelah banyak percobaan, tunggu beberapa menit.</td></tr>
+    <tr><td>Perubahan tidak terlihat</td><td>Pastikan tombol <strong>Simpan</strong> diklik dan pesan berhasil muncul; muat ulang halaman publik dengan <span class="kbd">Ctrl</span> + <span class="kbd">F5</span>.</td></tr>
+    <tr><td>Gambar gagal diunggah</td><td>Gunakan JPG/PNG/WEBP/GIF valid, ukuran &le; 5 MB, lalu coba lagi.</td></tr>
+    <tr><td>Baris tidak muncul</td><td>Periksa kolom kunci (Judul/Jabatan/Kode/Tentang/gambar) tidak boleh kosong sesuai menu.</td></tr>
+    <tr><td>Nominal keliru</td><td>Cukup ketik angka; sistem memformat Rupiah otomatis. Jangan ketik &ldquo;Rp&rdquo; atau titik manual.</td></tr>
+    <tr><td>Kepala Desa terkunci</td><td>Checklist dinonaktifkan karena sudah ada Kepala Desa. Hapus centang pada perangkat tersebut lebih dulu.</td></tr>
+  </table>
+  <h2>Checklist Sebelum Selesai</h2>
+  <div class="grid-2">
+    <ul class="checklist"><li>Identitas &amp; kontak benar</li><li>Jam pelayanan terbaru</li><li>Angka APBDes tervalidasi</li><li>Data penduduk konsisten</li></ul>
+    <ul class="checklist"><li>Foto &amp; teks alternatif tersedia</li><li>Tautan dokumen berfungsi</li><li>Hasil diperiksa di website</li><li>Sesi admin sudah keluar</li></ul>
+  </div>
+  <div class="note"><p>Bila masalah berlanjut, catat nama menu, waktu kejadian, tindakan terakhir, dan pesan kesalahan untuk disampaikan kepada pengelola teknis.</p></div>
+</main>
+    <footer class="page-foot"><span>Panduan Admin — Pengaturan Website Desa</span><span>Hal. 20</span></footer>
+  </section>
+
+</body></html>

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+AGENTS.md
+
+MIGRATION_PLAN.md
+
+
+# Foto yang diunggah lewat panel admin (runtime)
+/public/uploads/
