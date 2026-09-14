@@ -49,6 +49,9 @@ Dockerfile
 .dockerignore
 docker-compose.yml
 
+# folder manual/panduan (tidak di-publish ke repo)
+/manual/
+
 
 # Foto yang diunggah lewat panel admin (runtime)
 /public/uploads/
