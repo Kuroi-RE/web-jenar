@@ -7,7 +7,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Demografi",
   description:
-    "Data demografi dan kependudukan desa: jumlah penduduk, komposisi laki-laki dan perempuan.",
+    "Data demografi dan kependudukan kecamatan: jumlah penduduk, komposisi laki-laki dan perempuan.",
   alternates: { canonical: "/profil/demografi" },
 };
 
@@ -76,9 +76,9 @@ export default async function DemografiPage() {
       />
 
       <PageHero
-        eyebrow="Profil Desa"
+        eyebrow="Profil Kecamatan"
         title="Demografi"
-        description="Gambaran kependudukan desa berdasarkan data terkini."
+        description="Gambaran kependudukan wilayah kecamatan berdasarkan data terkini."
         breadcrumb={[{ label: "Profil" }, { label: "Demografi" }]}
       />
 

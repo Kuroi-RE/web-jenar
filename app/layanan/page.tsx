@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Layanan Publik",
   description:
-    "Informasi layanan publik desa: SOP pelayanan administrasi, jenis pelayanan dan persyaratan, maklumat pelayanan, serta pengadaan barang dan jasa.",
+    "Informasi layanan publik kecamatan: SOP pelayanan administrasi, jenis pelayanan dan persyaratan, maklumat pelayanan, serta pengadaan barang dan jasa.",
   alternates: { canonical: "/layanan" },
 };
 
@@ -52,8 +52,8 @@ export default async function LayananPage() {
 
       <PageHero
         eyebrow="Layanan Publik"
-        title="Layanan Publik Desa"
-        description="Layanan administrasi desa diselenggarakan secara mudah, cepat, dan tanpa biaya."
+        title="Layanan Publik Kecamatan"
+        description="Layanan administrasi kecamatan diselenggarakan secara mudah, cepat, dan tanpa biaya."
         breadcrumb={[{ label: "Layanan Publik" }]}
       />
 
@@ -80,7 +80,8 @@ export default async function LayananPage() {
             SOP Pelayanan Administrasi
           </h2>
           <p className="mt-3 max-w-2xl text-ink-soft">
-            Alur standar pelayanan administrasi bagi masyarakat desa.
+            Alur standar pelayanan administrasi bagi masyarakat di wilayah
+            kecamatan.
           </p>
 
           <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
@@ -209,7 +210,7 @@ export default async function LayananPage() {
               </h2>
               <p className="mt-3 text-ink-soft">
                 Pengelolaan pengadaan barang dan jasa di lingkungan pemerintah
-                desa mengedepankan prinsip transparansi dan akuntabilitas.
+                kecamatan mengedepankan prinsip transparansi dan akuntabilitas.
               </p>
             </div>
             <ul className="space-y-4">

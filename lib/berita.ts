@@ -201,16 +201,16 @@ export async function saveBerita(input: BeritaInput): Promise<string> {
   await query(
     `INSERT INTO berita
        (slug, title, date, category, excerpt, image, image_alt, author, body)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON DUPLICATE KEY UPDATE
-       title = new.title,
-       date = new.date,
-       category = new.category,
-       excerpt = new.excerpt,
-       image = new.image,
-       image_alt = new.image_alt,
-       author = new.author,
-       body = new.body`,
+       title = VALUES(title),
+       date = VALUES(date),
+       category = VALUES(category),
+       excerpt = VALUES(excerpt),
+       image = VALUES(image),
+       image_alt = VALUES(image_alt),
+       author = VALUES(author),
+       body = VALUES(body)`,
     [
       slug,
       input.title.trim(),
@@ -219,7 +219,7 @@ export async function saveBerita(input: BeritaInput): Promise<string> {
       input.excerpt.trim(),
       input.image?.trim() || null,
       input.imageAlt?.trim() || null,
-      input.author.trim() || "Pemerintah Desa Sidoharjo",
+      input.author.trim() || "Pemerintah Kecamatan Jenar",
       input.body.trim(),
     ],
   );

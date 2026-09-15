@@ -3,6 +3,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { isAuthenticated } from "@/lib/auth";
+import { getSettings } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,8 @@ export default async function LoginPage() {
   if (await isAuthenticated()) {
     redirect("/admin");
   }
+
+  const { site } = await getSettings();
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-surface-muted px-4 py-12">
@@ -29,10 +32,10 @@ export default async function LoginPage() {
             className="mx-auto size-14 object-contain"
           />
           <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-ink">
-            Panel Admin Desa
+            Panel Admin Kecamatan
           </h1>
           <p className="mt-1 text-sm text-ink-soft">
-            Masuk untuk mengelola konten website Desa Sidoharjo.
+            Masuk untuk mengelola konten website {site.name}.
           </p>
         </div>
 

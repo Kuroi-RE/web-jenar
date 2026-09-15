@@ -1,12 +1,12 @@
-// Data desa terpusat (dari §6 AGENTS.md / situs referensi).
+// Data kecamatan terpusat (seed awal; nilai final diatur via Pengaturan Umum).
 export const site = {
-  name: "Desa Jenar",
-  legalName: "Pemerintah Desa Jenar",
-  tagline: "Kec. Jenar, Kab. Sragen",
-  region: "Kecamatan Jenar, Kabupaten Sragen, Jawa Tengah",
+  name: "Kecamatan Jenar",
+  legalName: "Pemerintah Kecamatan Jenar",
+  tagline: "Kab. Sragen, Jawa Tengah",
+  region: "Kabupaten Sragen, Jawa Tengah",
   slogan: "Pelayanan Umum Gratis",
-  url: "https://Jenar.desa.id",
-  email: "ds.jenar.sragen@gmail.com",
+  url: "https://jenar.sragen.go.id",
+  email: "kec.jenar.sragen@gmail.com",
   phone: "0813-9301-1650",
   phoneIntl: "+6281393011650",
   address:

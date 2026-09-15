@@ -11,7 +11,7 @@ export default async function StatistikAdminPage() {
         Statistik &amp; Peta
       </h1>
       <p className="mt-1 text-ink-soft">
-        Kelola data kependudukan dan lokasi peta desa.
+        Kelola data kependudukan dan lokasi peta kecamatan.
       </p>
       <div className="mt-6">
         <StatistikForm statistik={statistik} />

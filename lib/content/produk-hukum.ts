@@ -1,9 +1,9 @@
-// Produk hukum Desa Sidoharjo (data contoh — lengkapi dengan dokumen resmi).
+// Produk hukum Kecamatan Jenar (data contoh — lengkapi dengan dokumen resmi).
 
 export type JenisProdukHukum =
-  | "Peraturan Desa"
-  | "Peraturan Kepala Desa"
-  | "Keputusan Kepala Desa";
+  | "Keputusan Camat"
+  | "Surat Edaran Camat"
+  | "Standar Operasional Prosedur";
 
 export type ProdukHukum = {
   nomor: string;
@@ -18,49 +18,49 @@ export const produkHukum: ProdukHukum[] = [
   {
     nomor: "1",
     tahun: 2026,
-    jenis: "Peraturan Desa",
-    tentang: "Anggaran Pendapatan dan Belanja Desa (APBDes) Tahun 2026",
+    jenis: "Keputusan Camat",
+    tentang: "Penetapan Standar Pelayanan Administrasi Terpadu Kecamatan",
   },
   {
     nomor: "2",
-    tahun: 2025,
-    jenis: "Peraturan Desa",
-    tentang: "Rencana Kerja Pemerintah Desa (RKPDes) Tahun 2026",
+    tahun: 2026,
+    jenis: "Keputusan Camat",
+    tentang: "Pembentukan Tim Koordinasi Pembangunan Tingkat Kecamatan",
   },
   {
     nomor: "3",
     tahun: 2025,
-    jenis: "Peraturan Desa",
-    tentang: "Pengelolaan Keuangan dan Aset Desa",
+    jenis: "Keputusan Camat",
+    tentang: "Penetapan Pejabat Pengelola Informasi dan Dokumentasi (PPID) Pembantu",
   },
   {
     nomor: "1",
     tahun: 2026,
-    jenis: "Peraturan Kepala Desa",
-    tentang: "Penjabaran APBDes Tahun Anggaran 2026",
+    jenis: "Surat Edaran Camat",
+    tentang: "Tertib Administrasi Pelayanan Surat Keterangan di Wilayah Kecamatan",
   },
   {
     nomor: "2",
     tahun: 2025,
-    jenis: "Peraturan Kepala Desa",
-    tentang: "Standar Pelayanan Administrasi Desa",
+    jenis: "Surat Edaran Camat",
+    tentang: "Pembinaan dan Pengawasan Penyelenggaraan Pemerintahan Desa",
   },
   {
-    nomor: "5",
+    nomor: "1",
     tahun: 2026,
-    jenis: "Keputusan Kepala Desa",
-    tentang: "Pembentukan Panitia Pengisian Perangkat Desa",
+    jenis: "Standar Operasional Prosedur",
+    tentang: "SOP Pelayanan Legalisasi dan Rekomendasi Surat",
   },
   {
-    nomor: "3",
-    tahun: 2025,
-    jenis: "Keputusan Kepala Desa",
-    tentang: "Penetapan Pejabat Pengelola Informasi dan Dokumentasi (PPID)",
+    nomor: "2",
+    tahun: 2026,
+    jenis: "Standar Operasional Prosedur",
+    tentang: "SOP Penanganan Pengaduan Masyarakat",
   },
 ];
 
 export const jenisProdukHukum: JenisProdukHukum[] = [
-  "Peraturan Desa",
-  "Peraturan Kepala Desa",
-  "Keputusan Kepala Desa",
+  "Keputusan Camat",
+  "Surat Edaran Camat",
+  "Standar Operasional Prosedur",
 ];

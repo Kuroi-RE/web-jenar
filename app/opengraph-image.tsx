@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getSettings } from "@/lib/store";
 
-export const alt = "Website Resmi Pemerintah Desa";
+export const alt = "Website Resmi Pemerintah Kecamatan";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -73,7 +73,7 @@ export default async function OpengraphImage() {
               letterSpacing: "1px",
             }}
           >
-            WEBSITE RESMI PEMERINTAH DESA
+            WEBSITE RESMI PEMERINTAH KECAMATAN
           </span>
           <span
             style={{

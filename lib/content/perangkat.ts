@@ -1,11 +1,12 @@
-// Struktur organisasi Pemerintah Desa Sidoharjo.
-// Nama Kepala Desa & Sekretaris Desa dari §6 AGENTS.md (data terkonfirmasi).
-// Jabatan lain: nama menyusul (photo & nama diisi saat data resmi tersedia).
+// Struktur organisasi Pemerintah Kecamatan Jenar (seed awal).
+// Nama pejabat dikosongkan (tampil "Nama menyusul") — isi lewat panel
+// admin → Penjabat saat data resmi tersedia.
+// Susunan jabatan mengacu PP No. 17 Tahun 2018 tentang Kecamatan.
 
 export type Perangkat = {
   /** Nama lengkap; kosongkan bila belum ada data resmi. */
   name?: string;
-  /** Jabatan dalam struktur pemerintahan desa. */
+  /** Jabatan dalam struktur pemerintahan kecamatan. */
   position: string;
   /** Path foto di /public (opsional). */
   photo?: string;
@@ -15,31 +16,35 @@ export type Perangkat = {
   featured?: boolean;
 };
 
-export const perangkatDesa: Perangkat[] = [
+export const perangkatKecamatan: Perangkat[] = [
   {
-    name: "Titik Saptawati, S.Pd, M.H",
-    position: "Kepala Desa",
+    position: "Camat",
     featured: true,
   },
   {
-    name: "Sugiyanto",
-    position: "Sekretaris Desa",
+    position: "Sekretaris Kecamatan",
   },
   {
-    position: "Kaur Keuangan",
+    position: "Kasubbag Umum & Kepegawaian",
   },
   {
-    position: "Kaur Umum & Perencanaan",
+    position: "Kasubbag Perencanaan & Keuangan",
   },
   {
     position: "Kasi Pemerintahan",
   },
   {
-    position: "Kasi Kesejahteraan & Pelayanan",
+    position: "Kasi Ketenteraman & Ketertiban Umum",
+  },
+  {
+    position: "Kasi Pemberdayaan Masyarakat",
+  },
+  {
+    position: "Kasi Pelayanan Umum",
   },
 ];
 
-/** Inisial dari nama untuk avatar fallback, mis. "Titik Saptawati" -> "TS". */
+/** Inisial dari nama untuk avatar fallback, mis. "Budi Santoso" -> "BS". */
 export function initials(name: string): string {
   const parts = name
     .replace(/,.*$/, "") // buang gelar setelah koma

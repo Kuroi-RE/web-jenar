@@ -10,7 +10,7 @@ import { Field, FormStatus, SubmitBar } from "./fields";
 import { RepeatableRows, RemoveRowButton } from "./RepeatableRows";
 
 const EMPTY: ProdukHukumS = {
-  jenis: "Peraturan Desa",
+  jenis: "Keputusan Camat",
   nomor: "",
   tahun: 0,
   tentang: "",

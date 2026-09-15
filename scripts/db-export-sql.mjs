@@ -1,13 +1,23 @@
-// Hasilkan file SQL (skema + seed berita) untuk diimpor manual via phpMyAdmin.
-// Tidak butuh koneksi database — hanya membaca content/berita/*.md.
+// Hasilkan file SQL (skema + seed lengkap) untuk diimpor manual via phpMyAdmin.
+// Tidak butuh koneksi database — membaca lib/content/* dan content/berita/*.md.
 // Jalankan: npm run db:export-sql  → menghasilkan scripts/init.sql
+//
+// Kompatibel MySQL 5.7 (tanpa row alias `AS new`, tanpa DEFAULT pada JSON).
+//
+// Kredensial admin seed dapat diatur lewat env:
+//   SEED_ADMIN_USERNAME (default "admin") · SEED_ADMIN_PASSWORD (default "admin123")
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import mysql from "mysql2";
 import matter from "gray-matter";
+import { defaultSettings } from "../lib/content/defaults.ts";
+import { hashPassword } from "../lib/password.ts";
 
 const BERITA_DIR = path.join(process.cwd(), "content", "berita");
 const OUT_FILE = path.join(process.cwd(), "scripts", "init.sql");
+
+const ADMIN_USERNAME = process.env.SEED_ADMIN_USERNAME || "admin";
+const ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || "admin123";
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS site_settings (
@@ -25,7 +35,7 @@ CREATE TABLE IF NOT EXISTS berita (
   excerpt TEXT NOT NULL,
   image VARCHAR(255) NULL,
   image_alt VARCHAR(255) NULL,
-  author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Desa Sidoharjo',
+  author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Kecamatan Jenar',
   body MEDIUMTEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -49,15 +59,54 @@ function toIso(value) {
 
 async function build() {
   const lines = [];
-  lines.push("-- Inisialisasi database Website Desa (impor via phpMyAdmin).");
+  lines.push(
+    "-- Inisialisasi database Website Kecamatan (impor via phpMyAdmin).",
+  );
   lines.push("-- Dihasilkan otomatis oleh scripts/db-export-sql.mjs.");
+  lines.push("-- Target: MySQL 5.7+ / MariaDB 10.2+ (utf8mb4).");
   lines.push("-- Pilih database tujuan lebih dulu, lalu Import file ini.");
+  lines.push(
+    "-- Semua seed memakai INSERT IGNORE: aman diimpor ulang, data yang sudah",
+  );
+  lines.push("-- diubah lewat panel admin tidak akan tertimpa.");
   lines.push("");
   lines.push("SET NAMES utf8mb4;");
   lines.push("");
   lines.push("-- =========== SKEMA ===========");
   lines.push(SCHEMA);
   lines.push("");
+
+  // ---- Seed pengaturan situs (seluruh konten yang editable via panel) ----
+  lines.push("-- =========== SEED PENGATURAN SITUS ===========");
+  lines.push(
+    "-- Isi lengkap: identitas, jam pelayanan, tautan, Tentang, Hero, Layanan,",
+  );
+  lines.push(
+    "-- Penjabat, Statistik, Profil (visi/misi/nilai/tupoksi), PPID, Produk",
+  );
+  lines.push("-- Hukum, Galeri, dan detail halaman Layanan.");
+  lines.push(
+    "INSERT IGNORE INTO site_settings (id, data) VALUES (1, " +
+      `${mysql.escape(JSON.stringify(defaultSettings))});`,
+  );
+  lines.push("");
+
+  // ---- Seed kredensial admin ----
+  lines.push("-- =========== SEED AKUN ADMIN ===========");
+  lines.push(
+    `-- Username: ${ADMIN_USERNAME} · Kata sandi: ${ADMIN_PASSWORD}`,
+  );
+  lines.push(
+    "-- PENTING: segera ganti lewat panel admin (menu Akun Admin) setelah login.",
+  );
+  lines.push("-- Kata sandi disimpan sebagai hash scrypt, bukan plaintext.");
+  lines.push(
+    "INSERT IGNORE INTO admin_credentials (id, username, password_hash) VALUES (1, " +
+      `${mysql.escape(ADMIN_USERNAME)}, ${mysql.escape(hashPassword(ADMIN_PASSWORD))});`,
+  );
+  lines.push("");
+
+  // ---- Seed berita ----
   lines.push("-- =========== SEED BERITA ===========");
 
   let files = [];
@@ -79,7 +128,7 @@ async function build() {
       data.excerpt ?? "",
       data.image ?? null,
       data.imageAlt ?? null,
-      data.author ?? "Pemerintah Desa Sidoharjo",
+      data.author ?? "Pemerintah Kecamatan Jenar",
       content.trim(),
     ];
     const escaped = values.map((v) => mysql.escape(v)).join(", ");
@@ -92,7 +141,8 @@ async function build() {
 
   await fs.writeFile(OUT_FILE, lines.join("\n") + "\n", "utf8");
   console.log(
-    `✓ SQL ditulis ke ${path.relative(process.cwd(), OUT_FILE)} (${files.length} berita).`,
+    `✓ SQL ditulis ke ${path.relative(process.cwd(), OUT_FILE)} ` +
+      `(pengaturan situs + akun admin "${ADMIN_USERNAME}" + ${files.length} berita).`,
   );
 }
 

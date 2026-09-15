@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Layanan Pengaduan",
   description:
-    "Layanan pengaduan masyarakat desa. Sampaikan keluhan dan aspirasi terkait pelayanan publik melalui kanal resmi beserta alur penanganannya.",
+    "Layanan pengaduan masyarakat kecamatan. Sampaikan keluhan dan aspirasi terkait pelayanan publik melalui kanal resmi beserta alur penanganannya.",
   alternates: { canonical: "/pengaduan" },
 };
 
@@ -43,7 +43,7 @@ export default async function PengaduanPage() {
   }[] = [
     {
       nama: "Formulir Pengaduan Online",
-      keterangan: "Sampaikan aduan Anda melalui formulir daring resmi desa.",
+      keterangan: "Sampaikan aduan Anda melalui formulir daring resmi kecamatan.",
       href: site.links.aduan || "#",
       external: true,
       iconPath: CHAT_ICON,
@@ -57,7 +57,7 @@ export default async function PengaduanPage() {
     })),
     {
       nama: "Datang Langsung / Telepon",
-      keterangan: `Kunjungi kantor desa pada jam pelayanan atau hubungi ${site.phone}.`,
+      keterangan: `Kunjungi kantor kecamatan pada jam pelayanan atau hubungi ${site.phone}.`,
       href: `tel:${site.phoneIntl}`,
       iconPath: PHONE_ICON,
     },
@@ -73,7 +73,7 @@ export default async function PengaduanPage() {
       <PageHero
         eyebrow="Layanan Publik"
         title="Layanan Pengaduan Masyarakat"
-        description="Suara Anda penting. Sampaikan keluhan, saran, dan aspirasi untuk pelayanan desa yang lebih baik."
+        description="Suara Anda penting. Sampaikan keluhan, saran, dan aspirasi untuk pelayanan kecamatan yang lebih baik."
         breadcrumb={[{ label: "Layanan Pengaduan" }]}
       />
 
@@ -175,7 +175,7 @@ export default async function PengaduanPage() {
                 Siap menyampaikan pengaduan?
               </h3>
               <p className="mt-1 text-sm text-primary-50/80">
-                Gunakan formulir pengaduan online resmi pemerintah desa.
+                Gunakan formulir pengaduan online resmi pemerintah kecamatan.
               </p>
             </div>
             <a

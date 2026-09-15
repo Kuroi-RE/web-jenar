@@ -44,7 +44,7 @@ export function Navbar({
               <span className="text-primary-50/30">|</span>
             )}
             <Link href="/profil/demografi" className="hover:text-white">
-              Statistik Desa
+              Statistik Kecamatan
             </Link>
             <span className="text-primary-50/30">|</span>
             <Link

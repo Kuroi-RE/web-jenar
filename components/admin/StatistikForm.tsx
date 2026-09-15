@@ -50,7 +50,7 @@ export function StatistikForm({
 
       <Section
         title="Peta Lokasi"
-        description="Kata kunci pencarian untuk embed Google Maps (mis. nama & alamat kantor desa)."
+        description="Kata kunci pencarian untuk embed Google Maps (mis. nama &amp; alamat kantor kecamatan)."
       >
         <Field
           name="petaQuery"

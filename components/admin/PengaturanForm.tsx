@@ -99,9 +99,9 @@ export function PengaturanForm({ settings }: { settings: Settings }) {
         </p>
       )}
 
-      <Section title="Identitas Desa">
+      <Section title="Identitas Kecamatan">
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field name="name" label="Nama Desa" defaultValue={site.name} />
+          <Field name="name" label="Nama Kecamatan" defaultValue={site.name} />
           <Field
             name="legalName"
             label="Nama Resmi"

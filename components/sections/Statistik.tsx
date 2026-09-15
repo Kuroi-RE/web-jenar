@@ -47,12 +47,12 @@ export async function Statistik() {
       <div className="container-desa">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Data Desa</span>
+          <span className="eyebrow">Data Kecamatan</span>
           <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
-            Statistik &amp; Peta Desa
+            Statistik &amp; Peta Kecamatan
           </h2>
           <p className="mt-4 text-ink-soft">
-            Gambaran kependudukan serta lokasi Kantor Desa untuk memudahkan
+            Gambaran kependudukan serta lokasi Kantor Kecamatan untuk memudahkan
             masyarakat mengakses layanan.
           </p>
         </div>
@@ -156,7 +156,7 @@ export async function Statistik() {
           <div className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-surface shadow-card dark:border-white/10">
             <div className="relative aspect-[4/3] w-full lg:aspect-auto lg:flex-1">
               <iframe
-                title="Peta lokasi Kantor Desa"
+                title="Peta lokasi Kantor Kecamatan"
                 src={petaEmbedSrc}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

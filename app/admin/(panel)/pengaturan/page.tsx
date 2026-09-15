@@ -12,7 +12,7 @@ export default async function PengaturanPage() {
         Pengaturan Umum
       </h1>
       <p className="mt-1 text-ink-soft">
-        Ubah identitas desa, kontak, tautan, media sosial, jam pelayanan, dan
+        Ubah identitas kecamatan, kontak, tautan, media sosial, jam pelayanan, dan
         teks Tentang. Perubahan langsung tampil di seluruh situs.
       </p>
 

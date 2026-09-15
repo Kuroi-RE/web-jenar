@@ -8,7 +8,7 @@ export default async function GaleriAdminPage() {
   return (
     <div className="max-w-3xl">
       <h1 className="text-2xl font-extrabold tracking-tight text-ink">Galeri</h1>
-      <p className="mt-1 text-ink-soft">Kelola foto dokumentasi kegiatan desa.</p>
+      <p className="mt-1 text-ink-soft">Kelola foto dokumentasi kegiatan kecamatan.</p>
       <div className="mt-6">
         <GaleriForm galeri={galeri} />
       </div>

@@ -8,7 +8,7 @@ const cards = [
   {
     href: "/admin/pengaturan",
     title: "Pengaturan Umum",
-    desc: "Nama desa, alamat, kontak, jam pelayanan, media sosial, tautan.",
+    desc: "Nama kecamatan, alamat, kontak, jam pelayanan, media sosial, tautan.",
   },
   {
     href: "/admin/hero",
@@ -27,13 +27,8 @@ const cards = [
   },
   {
     href: "/admin/perangkat",
-    title: "Perangkat Desa",
-    desc: "Nama, jabatan, dan foto perangkat.",
-  },
-  {
-    href: "/admin/apbdes",
-    title: "APBDes",
-    desc: "Anggaran pendapatan & belanja desa.",
+    title: "Penjabat",
+    desc: "Nama, jabatan, dan foto penjabat.",
   },
   {
     href: "/admin/statistik",
@@ -49,7 +44,7 @@ const cards = [
   {
     href: "/admin/produk-hukum",
     title: "Produk Hukum",
-    desc: "Peraturan & keputusan desa.",
+    desc: "Keputusan Camat, surat edaran, & SOP.",
   },
   { href: "/admin/galeri", title: "Galeri", desc: "Foto dokumentasi kegiatan." },
   {
@@ -86,11 +81,11 @@ export default async function DashboardPage() {
             >
               Pengaturan Umum
             </Link>{" "}
-            untuk mengisi identitas desa (nama, alamat, kontak, jam pelayanan).
-            Nama desa otomatis tampil di seluruh halaman.
+            untuk mengisi identitas kecamatan (nama, alamat, kontak, jam
+            pelayanan). Nama kecamatan otomatis tampil di seluruh halaman.
           </li>
           <li>
-            Isi menu lain sesuai kebutuhan (Hero, Perangkat, Berita, dst).
+            Isi menu lain sesuai kebutuhan (Hero, Penjabat, Berita, dst).
             Setiap perubahan langsung tampil di website setelah disimpan.
           </li>
           <li>
@@ -98,7 +93,7 @@ export default async function DashboardPage() {
           </li>
         </ol>
         <br></br>
-        <i className="text-gray-400">Silahkan kunjungi <a href="http://localhost:3000/manual/manualuser.pdf" className="text-blue-500">Panduan Pengguna</a> untuk informasi lebih lengkap.</i>
+        <i className="text-gray-400">Silahkan kunjungi <a href="https://jenar.sragenkab.go.id/manual/manualuser.pdf" className="text-blue-500">Panduan Pengguna</a> untuk informasi lebih lengkap.</i>
       </div>
 
       <div className="mt-6 rounded-2xl border border-black/5 bg-surface p-6 shadow-soft dark:border-white/10">

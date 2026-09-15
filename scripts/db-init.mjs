@@ -1,4 +1,4 @@
-// Inisialisasi database MySQL: buat tabel + impor berita dari content/berita/*.md.
+﻿// Inisialisasi database MySQL: buat tabel + impor berita dari content/berita/*.md.
 // Jalankan: npm run db:init  (memuat .env.local via --env-file)
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -44,7 +44,7 @@ async function createTables() {
       excerpt TEXT NOT NULL,
       image VARCHAR(255) NULL,
       image_alt VARCHAR(255) NULL,
-      author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Desa Sidoharjo',
+      author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Kecamatan Jenar',
       body MEDIUMTEXT NOT NULL,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -95,7 +95,7 @@ async function importBerita() {
         data.excerpt ?? "",
         data.image ?? null,
         data.imageAlt ?? null,
-        data.author ?? "Pemerintah Desa Sidoharjo",
+        data.author ?? "Pemerintah Kecamatan Jenar",
         content.trim(),
       ],
     );

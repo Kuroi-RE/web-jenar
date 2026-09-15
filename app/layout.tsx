@@ -11,8 +11,8 @@ import "./globals.css";
 export async function generateMetadata(): Promise<Metadata> {
   const { site } = await getSettings();
   const siteName = site.name;
-  const title = `${siteName} — Website Resmi Pemerintah Desa`;
-  const description = `Website resmi ${site.legalName}, ${site.region}. Informasi pelayanan publik, berita desa, transparansi APBDes, profil, dan layanan pengaduan masyarakat.`;
+  const title = `${siteName} — Website Resmi Pemerintah Kecamatan`;
+  const description = `Website resmi ${site.legalName}, ${site.region}. Informasi pelayanan publik, berita, profil, dan layanan pengaduan masyarakat.`;
 
   return {
     metadataBase: new URL(site.url),
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName,
       site.legalName,
       site.region,
-      "layanan desa",
-      "APBDes",
-      "berita desa",
+      "layanan kecamatan",
+      "pelayanan administrasi terpadu kecamatan",
+      "berita kecamatan",
       "pengaduan masyarakat",
-      "PPID desa",
+      "PPID kecamatan",
     ],
     authors: [{ name: site.legalName }],
     robots: { index: true, follow: true },

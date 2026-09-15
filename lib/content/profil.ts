@@ -1,15 +1,15 @@
-// Profil Desa Jenar.
+// Profil Kecamatan Jenar.
 // CATATAN: teks Visi & Misi di bawah bersifat template — ganti dengan
-// rumusan resmi desa saat dokumen RPJMDes tersedia.
+// rumusan resmi saat dokumen Renstra/RPJMD Kecamatan tersedia.
 
 export const visi =
-  "Terwujudnya Desa Jenar yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima, transparan, dan partisipatif.";
+  "Terwujudnya Kecamatan Jenar yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima, transparan, dan partisipatif.";
 
 export const misi: string[] = [
   "Meningkatkan kualitas pelayanan administrasi dan publik yang cepat, mudah, serta bebas biaya bagi seluruh warga.",
-  "Mewujudkan tata kelola pemerintahan desa yang transparan, akuntabel, dan partisipatif.",
-  "Mendorong pembangunan infrastruktur desa yang merata dan berkelanjutan.",
-  "Memberdayakan ekonomi masyarakat melalui UMKM, pertanian, dan potensi lokal desa.",
+  "Mewujudkan tata kelola pemerintahan kecamatan yang transparan, akuntabel, dan partisipatif.",
+  "Mengoordinasikan penyelenggaraan pemerintahan dan pembangunan di seluruh desa dalam wilayah kecamatan.",
+  "Memberdayakan ekonomi masyarakat melalui UMKM, pertanian, dan potensi lokal wilayah.",
   "Meningkatkan kualitas sumber daya manusia di bidang pendidikan, kesehatan, dan sosial keagamaan.",
 ];
 
@@ -20,7 +20,7 @@ export type NilaiProfil = {
   iconPath: string;
 };
 
-// Nilai/prinsip pelayanan desa (pendukung visi-misi).
+// Nilai/prinsip pelayanan kecamatan (pendukung visi-misi).
 export const nilaiPelayanan: NilaiProfil[] = [
   {
     title: "Transparan",
@@ -32,14 +32,14 @@ export const nilaiPelayanan: NilaiProfil[] = [
   {
     title: "Melayani",
     description:
-      "Pelayanan umum gratis, cepat, dan ramah untuk seluruh warga desa.",
+      "Pelayanan umum gratis, cepat, dan ramah untuk seluruh warga wilayah kecamatan.",
     iconPath:
       "M12 21c4.97-3.06 8-6.5 8-10a4 4 0 0 0-8-1 4 4 0 0 0-8 1c0 3.5 3.03 6.94 8 10Z",
   },
   {
     title: "Amanah",
     description:
-      "Pengelolaan sumber daya desa secara bertanggung jawab dan akuntabel.",
+      "Pengelolaan sumber daya dan aset daerah secara bertanggung jawab dan akuntabel.",
     iconPath:
       "M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3Z M9.5 12l1.8 1.8L15 10",
   },
@@ -52,68 +52,89 @@ export type Tupoksi = {
   tugas: string[];
 };
 
-// Tugas pokok & fungsi perangkat desa (mengacu Permendagri No. 84 Tahun 2015).
+// Tugas pokok & fungsi aparatur kecamatan
+// (mengacu PP No. 17 Tahun 2018 tentang Kecamatan).
 export const tugasPokokFungsi: Tupoksi[] = [
   {
-    jabatan: "Kepala Desa",
+    jabatan: "Camat",
     ringkasan:
-      "Menyelenggarakan pemerintahan desa, melaksanakan pembangunan, pembinaan kemasyarakatan, dan pemberdayaan masyarakat desa.",
+      "Memimpin penyelenggaraan urusan pemerintahan umum di wilayah kecamatan serta melaksanakan kewenangan yang dilimpahkan oleh Bupati.",
     tugas: [
-      "Memimpin penyelenggaraan pemerintahan desa.",
-      "Menetapkan Peraturan Desa bersama Badan Permusyawaratan Desa (BPD).",
-      "Membina kehidupan dan ketenteraman masyarakat desa.",
-      "Mengelola keuangan dan aset desa secara transparan dan akuntabel.",
+      "Menyelenggarakan urusan pemerintahan umum di tingkat kecamatan.",
+      "Mengoordinasikan kegiatan pemberdayaan masyarakat serta ketenteraman dan ketertiban umum.",
+      "Membina dan mengawasi penyelenggaraan pemerintahan desa.",
+      "Mengoordinasikan penyelenggaraan pelayanan publik di wilayah kecamatan.",
     ],
   },
   {
-    jabatan: "Sekretaris Desa",
+    jabatan: "Sekretaris Kecamatan",
     ringkasan:
-      "Membantu Kepala Desa dalam bidang administrasi pemerintahan dan memimpin kesekretariatan.",
+      "Membantu Camat dalam bidang administrasi dan memimpin penyelenggaraan kesekretariatan kecamatan.",
     tugas: [
-      "Mengoordinasikan tugas dan fungsi para kepala urusan.",
-      "Menyusun rancangan APBDes dan laporan penyelenggaraan pemerintahan desa.",
-      "Menata administrasi umum, aset, dan kearsipan desa.",
+      "Mengoordinasikan tugas dan fungsi subbagian serta seksi di kecamatan.",
+      "Menyusun rencana kerja, anggaran, dan laporan penyelenggaraan pemerintahan kecamatan.",
+      "Menata administrasi umum, aset, dan kearsipan kecamatan.",
       "Melaksanakan urusan ketatausahaan dan surat-menyurat.",
     ],
   },
   {
-    jabatan: "Kaur Keuangan",
+    jabatan: "Kasubbag Perencanaan & Keuangan",
     ringkasan:
-      "Melaksanakan fungsi kebendaharaan dan pengelolaan administrasi keuangan desa.",
+      "Melaksanakan penyusunan perencanaan program serta pengelolaan administrasi keuangan kecamatan.",
     tugas: [
-      "Mengelola administrasi keuangan dan sumber pendapatan desa.",
-      "Menyiapkan pembukuan serta verifikasi penerimaan dan pengeluaran.",
-      "Menyusun laporan pertanggungjawaban keuangan desa.",
+      "Menyusun rencana kerja, program, dan bahan penyusunan anggaran kecamatan.",
+      "Mengelola administrasi keuangan, pembukuan, serta verifikasi belanja.",
+      "Menyusun laporan pertanggungjawaban keuangan dan capaian kinerja.",
     ],
   },
   {
-    jabatan: "Kaur Umum & Perencanaan",
+    jabatan: "Kasubbag Umum & Kepegawaian",
     ringkasan:
-      "Melaksanakan urusan ketatausahaan, umum, serta penyusunan rencana kegiatan dan anggaran desa.",
+      "Melaksanakan urusan ketatausahaan, rumah tangga, sarana prasarana, dan administrasi kepegawaian.",
     tugas: [
       "Mengelola inventaris, sarana prasarana, dan administrasi umum.",
-      "Menyusun rencana kerja, RKPDes, dan bahan penyusunan APBDes.",
-      "Melaksanakan pelayanan administrasi kepegawaian aparatur desa.",
+      "Melaksanakan pelayanan administrasi kepegawaian aparatur kecamatan.",
+      "Menata kearsipan serta melayani kebutuhan tata usaha perkantoran.",
     ],
   },
   {
     jabatan: "Kasi Pemerintahan",
     ringkasan:
-      "Melaksanakan pengelolaan administrasi kependudukan dan penyelenggaraan pemerintahan desa.",
+      "Melaksanakan koordinasi penyelenggaraan pemerintahan serta pembinaan dan pengawasan pemerintahan desa.",
     tugas: [
-      "Mengelola administrasi kependudukan dan pertanahan.",
-      "Menyelenggarakan ketenteraman dan ketertiban masyarakat.",
-      "Menyiapkan bahan penyusunan produk hukum desa.",
+      "Mengoordinasikan administrasi kependudukan dan pertanahan.",
+      "Membina dan mengawasi penyelenggaraan pemerintahan desa.",
+      "Menyiapkan bahan fasilitasi penyusunan produk hukum desa.",
     ],
   },
   {
-    jabatan: "Kasi Kesejahteraan & Pelayanan",
+    jabatan: "Kasi Ketenteraman & Ketertiban Umum",
     ringkasan:
-      "Melaksanakan pembangunan, pemberdayaan, serta pelayanan kepada masyarakat desa.",
+      "Melaksanakan koordinasi penyelenggaraan ketenteraman, ketertiban umum, dan penegakan peraturan daerah.",
     tugas: [
-      "Melaksanakan pembangunan sarana prasarana dan ekonomi desa.",
+      "Mengoordinasikan penyelenggaraan ketenteraman dan ketertiban umum.",
+      "Berkoordinasi dengan aparat keamanan dalam pembinaan ketertiban masyarakat.",
+      "Memfasilitasi penanganan bencana dan kesiapsiagaan di wilayah kecamatan.",
+    ],
+  },
+  {
+    jabatan: "Kasi Pemberdayaan Masyarakat",
+    ringkasan:
+      "Melaksanakan koordinasi kegiatan pemberdayaan masyarakat dan pembangunan di wilayah kecamatan.",
+    tugas: [
+      "Mengoordinasikan pembangunan sarana prasarana dan pengembangan ekonomi masyarakat.",
+      "Memfasilitasi musyawarah perencanaan pembangunan tingkat kecamatan.",
       "Melaksanakan pemberdayaan masyarakat di bidang sosial, budaya, dan keagamaan.",
-      "Memberikan pelayanan kepada masyarakat sesuai bidang tugasnya.",
+    ],
+  },
+  {
+    jabatan: "Kasi Pelayanan Umum",
+    ringkasan:
+      "Menyelenggarakan pelayanan administrasi terpadu kecamatan (PATEN) kepada masyarakat.",
+    tugas: [
+      "Memberikan pelayanan perizinan dan nonperizinan sesuai kewenangan yang dilimpahkan.",
+      "Menyediakan informasi persyaratan, alur, dan waktu penyelesaian layanan.",
+      "Menindaklanjuti pengaduan masyarakat atas mutu pelayanan.",
     ],
   },
 ];

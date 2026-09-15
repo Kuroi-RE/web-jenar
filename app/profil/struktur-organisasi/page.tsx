@@ -8,7 +8,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Struktur Organisasi",
   description:
-    "Struktur organisasi dan susunan perangkat Pemerintah Desa.",
+    "Struktur organisasi dan susunan penjabat pemerintahan.",
   alternates: { canonical: "/profil/struktur-organisasi" },
 };
 
@@ -42,9 +42,9 @@ export default async function StrukturOrganisasiPage() {
       />
 
       <PageHero
-        eyebrow="Profil Desa"
+        eyebrow="Profil Kecamatan"
         title="Struktur Organisasi"
-        description="Susunan aparatur pemerintah desa yang melayani masyarakat."
+        description="Susunan aparatur pemerintah kecamatan yang melayani masyarakat."
         breadcrumb={[{ label: "Profil" }, { label: "Struktur Organisasi" }]}
       />
 
@@ -123,8 +123,8 @@ export default async function StrukturOrganisasiPage() {
           </div>
 
           <p className="mt-10 text-center text-sm text-ink-soft">
-            Data perangkat desa akan diperbarui sesuai keputusan resmi
-            pemerintah desa.
+            Data penjabat akan diperbarui sesuai keputusan resmi
+            pemerintah.
           </p>
         </div>
       </section>

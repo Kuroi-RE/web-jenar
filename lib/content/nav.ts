@@ -1,4 +1,4 @@
-import { site } from "./site";
+import { site } from "./site.ts";
 
 export type NavLink = { label: string; href: string };
 export type NavDropdown = { label: string; key: string; items: NavLink[] };
@@ -13,8 +13,8 @@ export const dropdowns: NavDropdown[] = [
       { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
       { label: "Tugas Pokok & Fungsi", href: "/profil/tugas-pokok-fungsi" },
       { label: "Demografi", href: "/profil/demografi" },
-      { label: "Peta Desa", href: "/#statistik" },
-      { label: "Perangkat Desa", href: "/#perangkat" },
+      { label: "Peta Kecamatan", href: "/#statistik" },
+      { label: "Penjabat", href: "/#perangkat" },
     ],
   },
   {
@@ -59,7 +59,7 @@ export const mobileGroups: NavDropdown[] = [
       { label: "Visi & Misi", href: "/profil/visi-misi" },
       { label: "Struktur Organisasi", href: "/profil/struktur-organisasi" },
       { label: "Demografi", href: "/profil/demografi" },
-      { label: "Perangkat Desa", href: "/#perangkat" },
+      { label: "Penjabat", href: "/#perangkat" },
     ],
   },
   {

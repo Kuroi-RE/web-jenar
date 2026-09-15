@@ -30,7 +30,7 @@ export function PerangkatForm({
     {},
   );
 
-  // Bangun state awal satu kali: slot baris (key stabil) + kunci Kepala Desa.
+  // Bangun state awal satu kali: slot baris (key stabil) + kunci pimpinan.
   const [data, setData] = useState<{ slots: Slot[]; featuredKey: number | null }>(
     () => {
       const base = perangkat.length > 0 ? perangkat : [EMPTY];
@@ -65,13 +65,13 @@ export function PerangkatForm({
 
   return (
     <form action={formAction} className="space-y-5">
-      <FormStatus state={state} successText="Perangkat desa berhasil disimpan." />
+      <FormStatus state={state} successText="Data penjabat berhasil disimpan." />
       <p className="text-sm text-ink-soft">
-        Susunan perangkat desa. Gunakan <strong>Tambah Perangkat</strong> /{" "}
+        Susunan penjabat. Gunakan <strong>Tambah Penjabat</strong> /{" "}
         <strong>Hapus</strong> untuk mengatur daftar. Kosongkan nama bila belum
         ada pejabat (tampil &ldquo;Nama menyusul&rdquo;). Hanya{" "}
-        <strong>satu</strong> perangkat yang dapat ditandai sebagai{" "}
-        <strong>Kepala Desa</strong>; setelah dipilih, pilihan pada perangkat
+        <strong>satu</strong> penjabat yang dapat ditandai sebagai{" "}
+        <strong>pimpinan</strong>; setelah dipilih, pilihan pada penjabat
         lain dinonaktifkan. Minimal satu jabatan.
       </p>
 
@@ -79,7 +79,7 @@ export function PerangkatForm({
         {slots.map((slot, i) => {
           const p = slot.item;
           const isFeatured = featuredKey === slot.key;
-          // Nonaktifkan bila sudah ada Kepala Desa lain yang dipilih.
+          // Nonaktifkan bila sudah ada pimpinan lain yang dipilih.
           const featuredDisabled = hasFeatured && !isFeatured;
           return (
             <section
@@ -88,7 +88,7 @@ export function PerangkatForm({
             >
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">
-                  Perangkat {i + 1}
+                  Penjabat {i + 1}
                 </p>
                 <RemoveRowButton
                   onClick={() => remove(slot.key)}
@@ -125,11 +125,11 @@ export function PerangkatForm({
                   onChange={(e) => setFeatured(slot.key, e.target.checked)}
                   className="size-4 rounded border-black/20 text-primary-700 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20"
                 />
-                Tandai sebagai unggulan (Kepala Desa)
+                Tandai sebagai unggulan (pimpinan)
               </label>
               {featuredDisabled && (
                 <p className="mt-1 text-xs text-ink-soft">
-                  Kepala Desa sudah ditetapkan pada perangkat lain. Hapus centang
+                  Pimpinan sudah ditetapkan pada penjabat lain. Hapus centang
                   di sana untuk memindahkannya.
                 </p>
               )}
@@ -154,10 +154,10 @@ export function PerangkatForm({
         >
           <path d="M12 5v14M5 12h14" />
         </svg>
-        Tambah Perangkat
+        Tambah Penjabat
       </button>
 
-      <SubmitBar pending={pending} label="Simpan Perangkat" />
+      <SubmitBar pending={pending} label="Simpan Penjabat" />
     </form>
   );
 }

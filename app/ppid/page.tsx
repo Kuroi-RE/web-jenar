@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "PPID",
   description:
-    "Pejabat Pengelola Informasi dan Dokumentasi (PPID) desa: profil, struktur, tugas dan fungsi, dasar hukum, serta klasifikasi informasi publik.",
+    "Pejabat Pengelola Informasi dan Dokumentasi (PPID) kecamatan: profil, struktur, tugas dan fungsi, dasar hukum, serta klasifikasi informasi publik.",
   alternates: { canonical: "/ppid" },
 };
 
@@ -46,7 +46,7 @@ export default async function PpidPage() {
       <PageHero
         eyebrow="Keterbukaan Informasi"
         title={`PPID ${site.name}`}
-        description="Pejabat Pengelola Informasi dan Dokumentasi — mewujudkan pemerintahan desa yang terbuka dan akuntabel."
+        description="Pejabat Pengelola Informasi dan Dokumentasi — mewujudkan pemerintahan kecamatan yang terbuka dan akuntabel."
         breadcrumb={[{ label: "PPID" }]}
       />
 

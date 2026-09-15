@@ -7,7 +7,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Produk Hukum",
   description:
-    "Kumpulan produk hukum desa: Peraturan Desa, Peraturan Kepala Desa, dan Keputusan Kepala Desa.",
+    "Kumpulan produk hukum kecamatan: Keputusan Camat, Surat Edaran Camat, dan Standar Operasional Prosedur.",
   alternates: { canonical: "/produk-hukum" },
 };
 
@@ -36,8 +36,8 @@ export default async function ProdukHukumPage() {
 
       <PageHero
         eyebrow="Dokumen"
-        title="Produk Hukum Desa"
-        description="Peraturan dan keputusan resmi yang menjadi landasan penyelenggaraan pemerintahan desa."
+        title="Produk Hukum Kecamatan"
+        description="Keputusan, surat edaran, dan prosedur resmi yang menjadi landasan penyelenggaraan pemerintahan kecamatan."
         breadcrumb={[{ label: "Produk Hukum" }]}
       />
 
@@ -129,7 +129,7 @@ export default async function ProdukHukumPage() {
 
           <p className="text-center text-sm text-ink-soft">
             Daftar produk hukum bersifat contoh dan akan diperbarui dengan
-            dokumen resmi pemerintah desa.
+            dokumen resmi pemerintah kecamatan.
           </p>
         </div>
       </section>

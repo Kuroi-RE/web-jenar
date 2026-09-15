@@ -1,4 +1,4 @@
-import { site } from "./site";
+import { site } from "./site.ts";
 
 export type AlurPengaduan = { judul: string; deskripsi: string };
 
@@ -38,7 +38,7 @@ export type KanalPengaduan = {
 export const kanalPengaduan: KanalPengaduan[] = [
   {
     nama: "Formulir Pengaduan Online",
-    keterangan: "Sampaikan aduan Anda melalui formulir daring resmi desa.",
+    keterangan: "Sampaikan aduan Anda melalui formulir daring resmi kecamatan.",
     href: site.links.aduan,
     external: true,
     iconPath:
@@ -54,7 +54,7 @@ export const kanalPengaduan: KanalPengaduan[] = [
   },
   {
     nama: "Datang Langsung / Telepon",
-    keterangan: `Kunjungi kantor desa pada jam pelayanan atau hubungi ${site.phone}.`,
+    keterangan: `Kunjungi kantor kecamatan pada jam pelayanan atau hubungi ${site.phone}.`,
     href: `tel:${site.phoneIntl}`,
     iconPath:
       "M2.25 6.75c0 8.28 6.72 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.37a1.5 1.5 0 0 0-1.14-1.46l-3.5-.88a1.5 1.5 0 0 0-1.54.6l-.7 1a11.3 11.3 0 0 1-5.1-5.1l1-.7a1.5 1.5 0 0 0 .6-1.54l-.88-3.5A1.5 1.5 0 0 0 6.87 3H5.5A2.25 2.25 0 0 0 3.25 5.25Z",

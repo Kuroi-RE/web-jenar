@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Tugas Pokok & Fungsi",
   description:
-    "Tugas pokok dan fungsi perangkat Pemerintah Desa sesuai Permendagri No. 84 Tahun 2015 tentang Susunan Organisasi dan Tata Kerja Pemerintah Desa.",
+    "Tugas pokok dan fungsi aparatur Pemerintah Kecamatan sesuai Peraturan Pemerintah No. 17 Tahun 2018 tentang Kecamatan.",
   alternates: { canonical: "/profil/tugas-pokok-fungsi" },
 };
 
@@ -41,9 +41,9 @@ export default async function TupoksiPage() {
       />
 
       <PageHero
-        eyebrow="Profil Desa"
+        eyebrow="Profil Kecamatan"
         title="Tugas Pokok & Fungsi"
-        description="Uraian tugas pokok dan fungsi masing-masing perangkat pemerintah desa."
+        description="Uraian tugas pokok dan fungsi masing-masing aparatur pemerintah kecamatan."
         breadcrumb={[{ label: "Profil" }, { label: "Tugas Pokok & Fungsi" }]}
       />
 
@@ -85,8 +85,9 @@ export default async function TupoksiPage() {
           </div>
 
           <p className="mt-10 text-center text-sm text-ink-soft">
-            Uraian tugas mengacu pada Peraturan Menteri Dalam Negeri Nomor 84
-            Tahun 2015 dan dapat disesuaikan dengan Peraturan Desa yang berlaku.
+            Uraian tugas mengacu pada Peraturan Pemerintah Nomor 17 Tahun 2018
+            tentang Kecamatan dan dapat disesuaikan dengan Peraturan Daerah yang
+            berlaku.
           </p>
         </div>
       </section>

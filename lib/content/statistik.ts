@@ -1,8 +1,11 @@
-// Statistik kependudukan Desa Jenar (dari §6 AGENTS.md).
+// Statistik kependudukan Kecamatan Jenar (seed awal).
+// Angka mengacu data Kecamatan Jenar, Kabupaten Sragen (7 desa, 26.550 jiwa
+// per akhir Juni 2007 — sumber: profil kecamatan). WAJIB diperbarui dengan
+// data terkini lewat panel admin → Statistik.
 
-export const pendudukTotal = 4089;
-export const pendudukLaki = 1977;
-export const pendudukPerempuan = 2112;
+export const pendudukTotal = 26550;
+export const pendudukLaki = 13150;
+export const pendudukPerempuan = 13400;
 
 export type StatistikKartu = {
   label: string;
@@ -46,13 +49,14 @@ export const statistikKartu: StatistikKartu[] = [
 ];
 
 /** Peta: query alamat untuk Google Maps embed (tanpa API key). */
-export const petaQuery = "Kantor Desa Jenar, Jenar, Sragen, Jawa Tengah 57281";
+export const petaQuery =
+  "Kantor Kecamatan Jenar, Jenar, Sragen, Jawa Tengah 57281";
 
 export const petaEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
   petaQuery,
 )}&z=15&output=embed`;
 
-/** Format angka ribuan gaya Indonesia, mis. 4089 -> "4.089". */
+/** Format angka ribuan gaya Indonesia, mis. 26550 -> "26.550". */
 export function formatAngka(value: number): string {
   return value.toLocaleString("id-ID");
 }

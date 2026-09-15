@@ -73,7 +73,7 @@ export async function saveSettingsAction(
   };
 
   if (!next.site.name) {
-    return { error: "Nama desa wajib diisi." };
+    return { error: "Nama kecamatan wajib diisi." };
   }
 
   try {

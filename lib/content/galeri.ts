@@ -1,4 +1,4 @@
-// Galeri kegiatan Desa Jenar. Gambar sementara memakai aset hero;
+// Galeri kegiatan Kecamatan Jenar. Gambar sementara memakai aset hero;
 // ganti dengan foto dokumentasi asli saat tersedia.
 
 export type GaleriItem = {
@@ -11,38 +11,38 @@ export type GaleriItem = {
 export const galeriItems: GaleriItem[] = [
   {
     src: "/images/hero/slide-1.jpeg",
-    judul: "Musyawarah Desa",
-    alt: "Suasana musyawarah desa di Balai Desa Jenar",
+    judul: "Musyawarah Tingkat Kecamatan",
+    alt: "Suasana musyawarah di aula Kantor Kecamatan Jenar",
     kategori: "Pemerintahan",
   },
   {
     src: "/images/hero/slide-2.jpeg",
-    judul: "Perencanaan Pembangunan",
-    alt: "Kegiatan perencanaan pembangunan Desa Jenar",
+    judul: "Musrenbang Kecamatan",
+    alt: "Kegiatan musyawarah perencanaan pembangunan Kecamatan Jenar",
     kategori: "Pembangunan",
   },
   {
     src: "/images/hero/slide-3.jpg",
-    judul: "Rapat Koordinasi Perangkat",
-    alt: "Rapat koordinasi perangkat Desa Jenar",
+    judul: "Rapat Koordinasi Aparatur",
+    alt: "Rapat koordinasi aparatur Kecamatan Jenar",
     kategori: "Kegiatan",
   },
   {
     src: "/images/hero/slide-1.jpeg",
     judul: "Pelayanan Masyarakat",
-    alt: "Petugas melayani warga di kantor Desa Jenar",
+    alt: "Petugas melayani warga di Kantor Kecamatan Jenar",
     kategori: "Pelayanan",
   },
   {
     src: "/images/hero/slide-2.jpeg",
     judul: "Gotong Royong Warga",
-    alt: "Warga bergotong royong membersihkan lingkungan desa",
+    alt: "Warga bergotong royong membersihkan lingkungan",
     kategori: "Sosial",
   },
   {
     src: "/images/hero/slide-3.jpg",
     judul: "Kegiatan Posyandu",
-    alt: "Kegiatan posyandu di Desa Jenar",
+    alt: "Kegiatan posyandu di wilayah Kecamatan Jenar",
     kategori: "Kesehatan",
   },
 ];

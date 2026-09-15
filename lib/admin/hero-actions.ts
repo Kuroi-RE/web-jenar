@@ -27,7 +27,7 @@ export async function saveHeroAction(
   for (let i = 0; i < MAX_SLIDES; i += 1) {
     const img = s(`slide_img_${i}`);
     if (!img) continue;
-    slides.push({ img, alt: s(`slide_alt_${i}`) || "Foto Desa" });
+    slides.push({ img, alt: s(`slide_alt_${i}`) || "Foto Kecamatan" });
   }
 
   if (slides.length === 0) {

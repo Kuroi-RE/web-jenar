@@ -6,9 +6,9 @@ import { site } from "@/lib/content/site";
 import { getAllBerita } from "@/lib/berita";
 
 export const metadata: Metadata = {
-  title: "Berita Desa",
+  title: "Berita Kecamatan",
   description:
-    "Kumpulan berita, pengumuman, dan informasi kegiatan terkini pemerintah desa.",
+    "Kumpulan berita, pengumuman, dan informasi kegiatan terkini pemerintah kecamatan.",
   alternates: { canonical: "/berita" },
 };
 
@@ -20,7 +20,7 @@ const jsonLd = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Berita Desa",
+      name: "Berita Kecamatan",
       item: `${site.url}/berita`,
     },
   ],
@@ -37,9 +37,9 @@ export default async function BeritaPage() {
       />
 
       <PageHero
-        eyebrow="Kabar Desa"
-        title="Berita Desa"
-        description="Informasi kegiatan, pengumuman, dan perkembangan terkini seputar desa."
+        eyebrow="Kabar Kecamatan"
+        title="Berita Kecamatan"
+        description="Informasi kegiatan, pengumuman, dan perkembangan terkini di wilayah kecamatan."
         breadcrumb={[{ label: "Berita" }]}
       />
 

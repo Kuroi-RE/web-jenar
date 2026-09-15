@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Visi & Misi",
   description:
-    "Visi dan Misi Pemerintah Desa dalam mewujudkan desa yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima dan transparan.",
+    "Visi dan Misi Pemerintah Kecamatan dalam mewujudkan wilayah yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima dan transparan.",
   alternates: { canonical: "/profil/visi-misi" },
 };
 
@@ -36,9 +36,9 @@ export default async function VisiMisiPage() {
       />
 
       <PageHero
-        eyebrow="Profil Desa"
+        eyebrow="Profil Kecamatan"
         title="Visi & Misi"
-        description={`Arah dan komitmen Pemerintah ${site.name} dalam melayani serta membangun desa.`}
+        description={`Arah dan komitmen Pemerintah ${site.name} dalam melayani serta membangun wilayah.`}
         breadcrumb={[{ label: "Profil" }, { label: "Visi & Misi" }]}
       />
 

@@ -8,10 +8,10 @@ export default async function PerangkatAdminPage() {
   return (
     <div className="max-w-3xl">
       <h1 className="text-2xl font-extrabold tracking-tight text-ink">
-        Perangkat Desa
+        Penjabat
       </h1>
       <p className="mt-1 text-ink-soft">
-        Kelola susunan perangkat desa (beranda &amp; halaman struktur
+        Kelola susunan penjabat (beranda &amp; halaman struktur
         organisasi).
       </p>
       <div className="mt-6">

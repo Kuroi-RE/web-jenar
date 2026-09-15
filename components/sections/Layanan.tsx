@@ -10,7 +10,7 @@ export async function Layanan() {
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Layanan Publik</span>
           <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
-            Layanan Unggulan Desa
+            Layanan Unggulan Kecamatan
           </h2>
           <p className="mt-4 text-ink-soft">
             Berbagai layanan administrasi dan informasi publik {site.name} yang

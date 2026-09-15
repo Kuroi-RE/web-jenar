@@ -11,7 +11,8 @@ export default async function ProdukHukumAdminPage() {
         Produk Hukum
       </h1>
       <p className="mt-1 text-ink-soft">
-        Kelola daftar Peraturan Desa, Peraturan Kepala Desa, dan Keputusan.
+        Kelola daftar Keputusan Camat, Surat Edaran, dan Standar Operasional
+        Prosedur.
       </p>
       <div className="mt-6">
         <ProdukHukumForm produkHukum={produkHukum} />

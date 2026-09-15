@@ -17,7 +17,7 @@ export async function Berita() {
         {/* Header */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <span className="eyebrow">Kabar Desa</span>
+            <span className="eyebrow">Kabar Kecamatan</span>
             <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
               Berita Terbaru
             </h2>

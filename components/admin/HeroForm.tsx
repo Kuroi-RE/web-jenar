@@ -50,7 +50,7 @@ export function HeroForm({
       <section className="rounded-2xl border border-black/5 bg-surface p-6 shadow-soft dark:border-white/10">
         <h2 className="text-lg font-bold text-ink">Teks Hero</h2>
         <p className="mt-1 text-sm text-ink-soft">
-          Judul besar Hero memakai <strong>Nama Desa</strong> (
+          Judul besar Hero memakai <strong>Nama Kecamatan</strong> (
           <code className="font-mono">{villageName}</code>) yang diubah di menu{" "}
           <strong>Pengaturan Umum</strong>.
         </p>

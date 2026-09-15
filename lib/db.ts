@@ -61,7 +61,7 @@ export function ensureSchema(): Promise<void> {
           excerpt TEXT NOT NULL,
           image VARCHAR(255) NULL,
           image_alt VARCHAR(255) NULL,
-          author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Desa Sidoharjo',
+          author VARCHAR(150) NOT NULL DEFAULT 'Pemerintah Kecamatan Jenar',
           body MEDIUMTEXT NOT NULL,
           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

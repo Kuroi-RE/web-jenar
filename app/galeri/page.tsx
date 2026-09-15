@@ -7,7 +7,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Galeri",
   description:
-    "Galeri dokumentasi kegiatan, pelayanan, dan momen penting di desa.",
+    "Galeri dokumentasi kegiatan, pelayanan, dan momen penting di wilayah kecamatan.",
   alternates: { canonical: "/galeri" },
 };
 
@@ -36,8 +36,8 @@ export default async function GaleriPage() {
 
       <PageHero
         eyebrow="Dokumentasi"
-        title="Galeri Desa"
-        description="Kumpulan dokumentasi kegiatan dan pelayanan desa."
+        title="Galeri Kecamatan"
+        description="Kumpulan dokumentasi kegiatan dan pelayanan kecamatan."
         breadcrumb={[{ label: "Galeri" }]}
       />
 
@@ -72,7 +72,7 @@ export default async function GaleriPage() {
           </div>
 
           <p className="mt-12 text-center text-sm text-ink-soft">
-            Dokumentasi akan diperbarui dengan foto kegiatan terbaru desa.
+            Dokumentasi akan diperbarui dengan foto kegiatan terbaru kecamatan.
           </p>
         </div>
       </section>

@@ -18,10 +18,10 @@ export async function Perangkat() {
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Struktur Organisasi</span>
           <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">
-            Perangkat {site.name}
+            Penjabat {site.name}
           </h2>
           <p className="mt-4 text-ink-soft">
-            Aparatur pemerintah desa yang melayani masyarakat dengan amanah,
+            Aparatur pemerintah yang melayani masyarakat dengan amanah,
             profesional, dan bertanggung jawab.
           </p>
         </div>

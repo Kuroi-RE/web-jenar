@@ -7,7 +7,6 @@ import {
   saveSettings,
   type LayananItemS,
   type PerangkatItemS,
-  type ApbdesPostS,
   type NilaiProfilS,
   type TupoksiS,
   type PpidStrukturS,
@@ -79,7 +78,7 @@ export async function saveLayananAction(
   return persist({ ...current, layanan: items });
 }
 
-/** Perangkat desa (struktur organisasi). */
+/** Penjabat kecamatan (struktur organisasi). */
 export async function savePerangkatAction(
   _prev: KontenFormState,
   formData: FormData,
@@ -121,37 +120,6 @@ export async function saveStatistikAction(
     },
   });
 }
-
-/** APBDes: ringkasan + rincian pendapatan. */
-export async function saveApbdesAction(
-  _prev: KontenFormState,
-  formData: FormData,
-): Promise<KontenFormState> {
-  await requireAuth();
-  const current = await getSettings();
-
-  const rincian: ApbdesPostS[] = [];
-  for (let i = 0; i < MAX_ROWS; i += 1) {
-    const code = str(formData, `code_${i}`);
-    if (!code) continue;
-    rincian.push({
-      code,
-      label: str(formData, `label_${i}`),
-      amount: num(formData, `amount_${i}`),
-    });
-  }
-
-  return persist({
-    ...current,
-    apbdes: {
-      tahun: num(formData, "tahun") || current.apbdes.tahun,
-      pendapatan: num(formData, "pendapatan"),
-      belanja: num(formData, "belanja"),
-      rincian: rincian.length > 0 ? rincian : current.apbdes.rincian,
-    },
-  });
-}
-
 
 /** Profil: visi, misi, nilai pelayanan, tugas pokok & fungsi. */
 export async function saveProfilAction(
@@ -242,7 +210,7 @@ export async function saveProdukHukumAction(
     const tentang = str(formData, `ph_tentang_${i}`);
     if (!tentang) continue;
     items.push({
-      jenis: str(formData, `ph_jenis_${i}`) || "Peraturan Desa",
+      jenis: str(formData, `ph_jenis_${i}`) || "Keputusan Camat",
       nomor: str(formData, `ph_nomor_${i}`),
       tahun: num(formData, `ph_tahun_${i}`),
       tentang,
