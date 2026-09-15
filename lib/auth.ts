@@ -3,16 +3,24 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import crypto from "node:crypto";
 import {
-  getStoredCredentials,
+  getCredentialsByUsername,
+  countAdmins,
   verifyPassword,
   envUsername,
   envPassword,
+  type AdminAccount,
 } from "@/lib/credentials";
 
 const COOKIE_NAME = "desa_admin_session";
 const MAX_AGE = 60 * 60 * 8; // 8 jam
 
 const SECRET = process.env.AUTH_SECRET || "dev-insecure-secret-change-me";
+
+// Hash boneka untuk menyamakan waktu kerja saat username tidak ditemukan,
+// sehingga selisih waktu respons tidak membocorkan username mana yang ada.
+const DUMMY_HASH =
+  "scrypt$0000000000000000000000000000000000000000000000000000000000000000$" +
+  "0".repeat(128);
 
 if (
   process.env.NODE_ENV === "production" &&
@@ -22,25 +30,39 @@ if (
   console.warn("[auth] ADMIN_PASSWORD/AUTH_SECRET perlu diisi.");
 }
 
+/** Akun bootstrap dari environment; berperan superadmin agar bisa memulihkan akun lain. */
+function envAccount(): AdminAccount {
+  return { id: null, username: envUsername, role: "superadmin" };
+}
+
 /**
- * Kredensial aktif untuk penandatanganan token. `secretMaterial` di-mix ke
- * tanda tangan sehingga MENGUBAH username atau kata sandi otomatis
- * membatalkan seluruh sesi lama (token lama tak lagi cocok).
- * Toleran DB: jatuh ke kredensial env bila DB tak tersedia.
+ * Materi rahasia yang dicampur ke tanda tangan token. Karena memakai
+ * `passwordHash` akun, MENGUBAH kata sandi/username otomatis membatalkan
+ * sesi lama milik akun itu (dan hanya akun itu).
  */
-async function resolveCredState(): Promise<{
-  username: string;
-  secretMaterial: string;
-}> {
+type CredState = { account: AdminAccount; secretMaterial: string };
+
+async function resolveCredState(username: string): Promise<CredState | null> {
   try {
-    const stored = await getStoredCredentials();
+    const stored = await getCredentialsByUsername(username);
     if (stored) {
-      return { username: stored.username, secretMaterial: stored.passwordHash };
+      return {
+        account: { id: stored.id, username: stored.username, role: stored.role },
+        secretMaterial: stored.passwordHash,
+      };
     }
+    // Tabel masih kosong → akun env dipakai sebagai bootstrap.
+    if ((await countAdmins()) === 0 && safeEqual(username, envUsername)) {
+      return { account: envAccount(), secretMaterial: `env:${envPassword}` };
+    }
+    return null;
   } catch (err) {
     console.error("[auth] gagal baca kredensial DB, memakai env:", err);
+    if (safeEqual(username, envUsername)) {
+      return { account: envAccount(), secretMaterial: `env:${envPassword}` };
+    }
+    return null;
   }
-  return { username: envUsername, secretMaterial: `env:${envPassword}` };
 }
 
 function sign(username: string, secretMaterial: string, exp: number): string {
@@ -50,12 +72,6 @@ function sign(username: string, secretMaterial: string, exp: number): string {
     .digest("hex");
 }
 
-/** Buat token sesi bertanda tangan: "<exp>.<hmac>" (exp = epoch ms). */
-async function makeToken(exp: number): Promise<string> {
-  const { username, secretMaterial } = await resolveCredState();
-  return `${exp}.${sign(username, secretMaterial, exp)}`;
-}
-
 function safeEqual(a: string, b: string): boolean {
   const bufA = Buffer.from(a);
   const bufB = Buffer.from(b);
@@ -63,45 +79,95 @@ function safeEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(bufA, bufB);
 }
 
-/** Verifikasi token sesi: tanda tangan valid DAN belum kedaluwarsa. */
-async function verifyToken(token: string): Promise<boolean> {
-  const dot = token.indexOf(".");
-  if (dot <= 0) return false;
-  const expStr = token.slice(0, dot);
-  const exp = Number(expStr);
-  if (!Number.isFinite(exp) || Date.now() > exp) return false;
-  return safeEqual(token, await makeToken(exp));
+/** Token sesi: "<username-base64url>.<exp>.<hmac>" (exp = epoch ms). */
+async function makeToken(username: string, exp: number): Promise<string | null> {
+  const state = await resolveCredState(username);
+  if (!state) return null;
+  const user64 = Buffer.from(username, "utf8").toString("base64url");
+  return `${user64}.${exp}.${sign(username, state.secretMaterial, exp)}`;
 }
 
-/** Verifikasi username + kata sandi (DB dulu, fallback env). */
+/** Verifikasi token sesi: tanda tangan valid, akun masih ada, belum kedaluwarsa. */
+async function verifyToken(token: string): Promise<AdminAccount | null> {
+  const parts = token.split(".");
+  if (parts.length !== 3) return null;
+  const [user64, expStr, mac] = parts;
+
+  const exp = Number(expStr);
+  if (!Number.isFinite(exp) || Date.now() > exp) return null;
+
+  let username: string;
+  try {
+    username = Buffer.from(user64!, "base64url").toString("utf8");
+  } catch {
+    return null;
+  }
+  if (!username) return null;
+
+  const state = await resolveCredState(username);
+  if (!state) return null;
+
+  if (!safeEqual(mac!, sign(username, state.secretMaterial, exp))) return null;
+  return state.account;
+}
+
+/**
+ * Verifikasi username + kata sandi. Mengembalikan akun bila cocok, `null` bila
+ * tidak. DB lebih dulu; kredensial env hanya dipakai bila tabel kosong atau DB
+ * tak terjangkau.
+ */
+export async function authenticate(
+  username: string,
+  password: string,
+): Promise<AdminAccount | null> {
+  const envMatch = () =>
+    safeEqual(username, envUsername) && safeEqual(password, envPassword)
+      ? envAccount()
+      : null;
+
+  try {
+    const stored = await getCredentialsByUsername(username);
+    if (stored) {
+      return verifyPassword(password, stored.passwordHash)
+        ? { id: stored.id, username: stored.username, role: stored.role }
+        : null;
+    }
+    if ((await countAdmins()) === 0) return envMatch();
+    // Akun tidak ada: tetap lakukan kerja hashing agar waktu respons seragam.
+    verifyPassword(password, DUMMY_HASH);
+    return null;
+  } catch (err) {
+    console.error("[auth] gagal baca kredensial DB, memakai env:", err);
+    return envMatch();
+  }
+}
+
+/** Kompatibilitas: versi boolean dari `authenticate`. */
 export async function verifyCredentials(
   username: string,
   password: string,
 ): Promise<boolean> {
-  try {
-    const stored = await getStoredCredentials();
-    if (stored) {
-      const okUser = safeEqual(username, stored.username);
-      const okPass = verifyPassword(password, stored.passwordHash);
-      return okUser && okPass;
-    }
-  } catch (err) {
-    console.error("[auth] gagal baca kredensial DB, memakai env:", err);
-  }
-  const okUser = safeEqual(username, envUsername);
-  const okPass = safeEqual(password, envPassword);
-  return okUser && okPass;
+  return (await authenticate(username, password)) !== null;
 }
 
-/** Username admin yang berlaku saat ini (untuk prefill form). */
-export async function getCurrentUsername(): Promise<string> {
-  const { username } = await resolveCredState();
-  return username;
-}
-
-export async function createSession(): Promise<void> {
+/** Akun pada sesi aktif, atau `null` bila belum login. */
+export async function getSessionAdmin(): Promise<AdminAccount | null> {
   const store = await cookies();
-  store.set(COOKIE_NAME, await makeToken(Date.now() + MAX_AGE * 1000), {
+  const value = store.get(COOKIE_NAME)?.value;
+  if (!value) return null;
+  return verifyToken(value);
+}
+
+/** Username admin yang sedang login (string kosong bila tidak ada sesi). */
+export async function getCurrentUsername(): Promise<string> {
+  return (await getSessionAdmin())?.username ?? "";
+}
+
+export async function createSession(username: string): Promise<void> {
+  const token = await makeToken(username, Date.now() + MAX_AGE * 1000);
+  if (!token) throw new Error(`[auth] tidak dapat membuat sesi untuk ${username}`);
+  const store = await cookies();
+  store.set(COOKIE_NAME, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -116,15 +182,19 @@ export async function destroySession(): Promise<void> {
 }
 
 export async function isAuthenticated(): Promise<boolean> {
-  const store = await cookies();
-  const value = store.get(COOKIE_NAME)?.value;
-  if (!value) return false;
-  return verifyToken(value);
+  return (await getSessionAdmin()) !== null;
 }
 
 /** Wajib login: redirect ke halaman login bila belum terautentikasi. */
-export async function requireAuth(): Promise<void> {
-  if (!(await isAuthenticated())) {
-    redirect("/admin/login");
-  }
+export async function requireAuth(): Promise<AdminAccount> {
+  const admin = await getSessionAdmin();
+  if (!admin) redirect("/admin/login");
+  return admin;
+}
+
+/** Wajib superadmin. */
+export async function requireSuperadmin(): Promise<AdminAccount> {
+  const admin = await requireAuth();
+  if (admin.role !== "superadmin") redirect("/admin");
+  return admin;
 }

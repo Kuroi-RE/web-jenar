@@ -2,14 +2,15 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 
-// Content-Security-Policy yang kompatibel dengan Next.js + embed Google Maps.
+// Content-Security-Policy yang kompatibel dengan Next.js + embed Google Maps
+// + widget Cloudflare Turnstile pada halaman login admin.
 // Catatan: 'unsafe-inline' pada script/style masih diperlukan karena Next
 // menyuntikkan script bootstrap & style inline tanpa nonce.
 // 'unsafe-eval' HANYA diaktifkan saat development karena React/Next dev mode
 // (Fast Refresh, debugging) memakai eval(); di produksi tetap dilarang.
 const scriptSrc = isDev
-  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-  : "script-src 'self' 'unsafe-inline'";
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com"
+  : "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com";
 
 const csp = [
   "default-src 'self'",
@@ -20,8 +21,8 @@ const csp = [
   scriptSrc,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "connect-src 'self'",
-  "frame-src https://maps.google.com https://www.google.com",
+  "connect-src 'self' https://challenges.cloudflare.com",
+  "frame-src https://maps.google.com https://www.google.com https://challenges.cloudflare.com",
   "form-action 'self'",
   "upgrade-insecure-requests",
 ].join("; ");

@@ -1,4 +1,4 @@
-﻿// Inisialisasi database MySQL: buat tabel + impor berita dari content/berita/*.md.
+// Inisialisasi database MySQL: buat tabel + impor berita dari content/berita/*.md.
 // Jalankan: npm run db:init  (memuat .env.local via --env-file)
 import { promises as fs } from "node:fs";
 import path from "node:path";

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "db:init": "node --env-file=.env.local scripts/db-init.mjs",
+    "db:seed-admins": "node --env-file=.env.local scripts/db-seed-admins.mjs",
     "db:export-sql": "node scripts/db-export-sql.mjs"
   },
   "dependencies": {
