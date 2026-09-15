@@ -1,4 +1,4 @@
-// Statistik kependudukan Desa Sidoharjo (dari §6 AGENTS.md).
+// Statistik kependudukan Desa Jenar (dari §6 AGENTS.md).
 
 export const pendudukTotal = 4089;
 export const pendudukLaki = 1977;
@@ -46,7 +46,7 @@ export const statistikKartu: StatistikKartu[] = [
 ];
 
 /** Peta: query alamat untuk Google Maps embed (tanpa API key). */
-export const petaQuery = "Kantor Desa Sidoharjo, Sidoharjo, Sragen, Jawa Tengah 57281";
+export const petaQuery = "Kantor Desa Jenar, Jenar, Sragen, Jawa Tengah 57281";
 
 export const petaEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
   petaQuery,

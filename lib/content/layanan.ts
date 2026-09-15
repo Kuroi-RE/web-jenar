@@ -35,13 +35,13 @@ export const layananItems: Layanan[] = [
   },
   {
     title: "Survei Kepuasan Masyarakat",
-    desc: "Berikan penilaian Anda terhadap kualitas pelayanan Desa Sidoharjo.",
+    desc: "Berikan penilaian Anda terhadap kualitas pelayanan Desa Jenar.",
     href: site.links.skm,
     path: "M11.5 3.5a.6.6 0 0 1 1 0l2.3 4.6 5.1.7a.6.6 0 0 1 .3 1l-3.7 3.6.9 5.1a.6.6 0 0 1-.9.6L12 17.3l-4.5 2.4a.6.6 0 0 1-.9-.6l.9-5.1-3.7-3.6a.6.6 0 0 1 .3-1l5.1-.7 2.3-4.6Z",
   },
   {
     title: "Pengadaan Barang & Jasa",
-    desc: "Informasi pengadaan barang dan jasa di lingkungan Desa Sidoharjo.",
+    desc: "Informasi pengadaan barang dan jasa di lingkungan Desa Jenar.",
     href: "/layanan#pengadaan",
     path: "M20 7 12 3 4 7m16 0-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",
   },

@@ -1,9 +1,9 @@
-// Profil Desa Sidoharjo.
+// Profil Desa Jenar.
 // CATATAN: teks Visi & Misi di bawah bersifat template — ganti dengan
 // rumusan resmi desa saat dokumen RPJMDes tersedia.
 
 export const visi =
-  "Terwujudnya Desa Sidoharjo yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima, transparan, dan partisipatif.";
+  "Terwujudnya Desa Jenar yang maju, mandiri, dan sejahtera melalui pelayanan publik yang prima, transparan, dan partisipatif.";
 
 export const misi: string[] = [
   "Meningkatkan kualitas pelayanan administrasi dan publik yang cepat, mudah, serta bebas biaya bagi seluruh warga.",

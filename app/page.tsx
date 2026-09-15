@@ -11,7 +11,7 @@ import { getSettings } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Beranda",
   description:
-    "Website resmi Pemerintah Desa Sidoharjo, Kecamatan Sidoharjo, Kabupaten Sragen. Akses layanan publik, berita desa, transparansi APBDes 2026, dan pengaduan masyarakat secara online.",
+    "Website resmi Pemerintah Desa Jenar, Kecamatan Jenar, Kabupaten Sragen. Akses layanan publik, berita desa, transparansi APBDes 2026, dan pengaduan masyarakat secara online.",
 };
 
 export default async function Home() {

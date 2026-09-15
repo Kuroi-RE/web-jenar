@@ -23,7 +23,7 @@ function parseForm(formData: FormData): BeritaInput {
     image: String(formData.get("image") ?? "").trim() || undefined,
     imageAlt: String(formData.get("imageAlt") ?? "").trim() || undefined,
     author:
-      String(formData.get("author") ?? "").trim() || "Pemerintah Desa Sidoharjo",
+      String(formData.get("author") ?? "").trim() || "Pemerintah Desa Jenar",
     body: String(formData.get("body") ?? ""),
   };
 }

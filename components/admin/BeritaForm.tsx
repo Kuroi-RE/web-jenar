@@ -110,7 +110,7 @@ export function BeritaForm({
           id="author"
           name="author"
           type="text"
-          defaultValue={values.author ?? "Pemerintah Desa Sidoharjo"}
+          defaultValue={values.author ?? "Pemerintah Desa Jenar"}
           className={inputClass}
         />
       </div>

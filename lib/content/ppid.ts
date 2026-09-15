@@ -1,15 +1,15 @@
-// PPID — Pejabat Pengelola Informasi dan Dokumentasi Desa Sidoharjo.
+// PPID — Pejabat Pengelola Informasi dan Dokumentasi Desa Jenar.
 // Konten mengacu UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik.
 
 export const ppidProfil =
-  "PPID (Pejabat Pengelola Informasi dan Dokumentasi) Desa Sidoharjo bertanggung jawab menyediakan, menyimpan, mendokumentasikan, dan melayani permintaan informasi publik. PPID hadir untuk mewujudkan penyelenggaraan pemerintahan desa yang terbuka, transparan, dan akuntabel sesuai amanat Undang-Undang Keterbukaan Informasi Publik.";
+  "PPID (Pejabat Pengelola Informasi dan Dokumentasi) Desa Jenar bertanggung jawab menyediakan, menyimpan, mendokumentasikan, dan melayani permintaan informasi publik. PPID hadir untuk mewujudkan penyelenggaraan pemerintahan desa yang terbuka, transparan, dan akuntabel sesuai amanat Undang-Undang Keterbukaan Informasi Publik.";
 
 export type PpidStruktur = { jabatan: string; keterangan: string };
 
 export const ppidStruktur: PpidStruktur[] = [
   {
     jabatan: "Pembina / Atasan PPID",
-    keterangan: "Kepala Desa Sidoharjo",
+    keterangan: "Kepala Desa Jenar",
   },
   {
     jabatan: "Ketua PPID",
