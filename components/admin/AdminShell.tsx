@@ -18,6 +18,7 @@ const navItems = [
   { href: "/admin/produk-hukum", label: "Produk Hukum" },
   { href: "/admin/galeri", label: "Galeri" },
   { href: "/admin/pengaturan", label: "Pengaturan Umum" },
+  { href: "/admin/akun", label: "Akun Admin" },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {

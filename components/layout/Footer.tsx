@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getBeritaTerbaru } from "@/lib/berita";
 import { getSettings } from "@/lib/store";
 
@@ -42,31 +43,13 @@ export async function Footer() {
           {/* Brand + address */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-xl bg-primary-700 text-white">
-                <svg
-                  className="size-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 10.5 12 3l9 7.5"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 9.5V20h14V9.5"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9.5 20v-5h5v5"
-                  />
-                </svg>
-              </span>
+              <Image
+                src="/logos/logo-sragen.png"
+                alt={`Logo ${site.name}`}
+                width={44}
+                height={44}
+                className="size-11 shrink-0 object-contain"
+              />
               <div className="leading-tight">
                 <p className="text-base font-bold text-white">{site.name}</p>
                 <p className="text-xs text-primary-50/60">{site.tagline}</p>
@@ -214,7 +197,30 @@ export async function Footer() {
             &copy; {new Date().getFullYear()} {site.legalName}. Seluruh hak cipta
             dilindungi.
           </p>
-          <p>{site.region}</p>
+          <div className="flex items-center gap-4">
+            <p>{site.region}</p>
+            <span className="hidden h-3 w-px bg-white/15 sm:block" />
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center gap-1.5 font-medium transition hover:text-accent-300"
+            >
+              <svg
+                className="size-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 15l3-3m0 0-3-3m3 3H9"
+                />
+              </svg>
+              Login Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

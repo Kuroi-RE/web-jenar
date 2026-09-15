@@ -52,6 +52,11 @@ const cards = [
     desc: "Peraturan & keputusan desa.",
   },
   { href: "/admin/galeri", title: "Galeri", desc: "Foto dokumentasi kegiatan." },
+  {
+    href: "/admin/akun",
+    title: "Akun Admin",
+    desc: "Ubah username & kata sandi login panel admin.",
+  },
 ];
 
 export default async function DashboardPage() {

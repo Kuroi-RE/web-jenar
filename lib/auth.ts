@@ -2,12 +2,16 @@ import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import crypto from "node:crypto";
+import {
+  getStoredCredentials,
+  verifyPassword,
+  envUsername,
+  envPassword,
+} from "@/lib/credentials";
 
 const COOKIE_NAME = "desa_admin_session";
 const MAX_AGE = 60 * 60 * 8; // 8 jam
 
-const USERNAME = process.env.ADMIN_USERNAME || "admin";
-const PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
 const SECRET = process.env.AUTH_SECRET || "dev-insecure-secret-change-me";
 
 if (
@@ -15,18 +19,41 @@ if (
   (!process.env.ADMIN_PASSWORD || !process.env.AUTH_SECRET)
 ) {
   // Peringatan keras: jangan jalankan produksi dengan kredensial default.
-  console.warn(
-    "[auth] ADMIN_PASSWORD/AUTH_SECRET neds to be set.",
-  );
+  console.warn("[auth] ADMIN_PASSWORD/AUTH_SECRET perlu diisi.");
+}
+
+/**
+ * Kredensial aktif untuk penandatanganan token. `secretMaterial` di-mix ke
+ * tanda tangan sehingga MENGUBAH username atau kata sandi otomatis
+ * membatalkan seluruh sesi lama (token lama tak lagi cocok).
+ * Toleran DB: jatuh ke kredensial env bila DB tak tersedia.
+ */
+async function resolveCredState(): Promise<{
+  username: string;
+  secretMaterial: string;
+}> {
+  try {
+    const stored = await getStoredCredentials();
+    if (stored) {
+      return { username: stored.username, secretMaterial: stored.passwordHash };
+    }
+  } catch (err) {
+    console.error("[auth] gagal baca kredensial DB, memakai env:", err);
+  }
+  return { username: envUsername, secretMaterial: `env:${envPassword}` };
+}
+
+function sign(username: string, secretMaterial: string, exp: number): string {
+  return crypto
+    .createHmac("sha256", SECRET)
+    .update(`auth:${username}:${secretMaterial}:${exp}`)
+    .digest("hex");
 }
 
 /** Buat token sesi bertanda tangan: "<exp>.<hmac>" (exp = epoch ms). */
-function makeToken(exp: number): string {
-  const sig = crypto
-    .createHmac("sha256", SECRET)
-    .update(`auth:${USERNAME}:${exp}`)
-    .digest("hex");
-  return `${exp}.${sig}`;
+async function makeToken(exp: number): Promise<string> {
+  const { username, secretMaterial } = await resolveCredState();
+  return `${exp}.${sign(username, secretMaterial, exp)}`;
 }
 
 function safeEqual(a: string, b: string): boolean {
@@ -37,25 +64,44 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 /** Verifikasi token sesi: tanda tangan valid DAN belum kedaluwarsa. */
-function verifyToken(token: string): boolean {
+async function verifyToken(token: string): Promise<boolean> {
   const dot = token.indexOf(".");
   if (dot <= 0) return false;
   const expStr = token.slice(0, dot);
   const exp = Number(expStr);
   if (!Number.isFinite(exp) || Date.now() > exp) return false;
-  return safeEqual(token, makeToken(exp));
+  return safeEqual(token, await makeToken(exp));
 }
 
-/** Verifikasi username + password (perbandingan waktu-konstan). */
-export function verifyCredentials(username: string, password: string): boolean {
-  const okUser = safeEqual(username, USERNAME);
-  const okPass = safeEqual(password, PASSWORD);
+/** Verifikasi username + kata sandi (DB dulu, fallback env). */
+export async function verifyCredentials(
+  username: string,
+  password: string,
+): Promise<boolean> {
+  try {
+    const stored = await getStoredCredentials();
+    if (stored) {
+      const okUser = safeEqual(username, stored.username);
+      const okPass = verifyPassword(password, stored.passwordHash);
+      return okUser && okPass;
+    }
+  } catch (err) {
+    console.error("[auth] gagal baca kredensial DB, memakai env:", err);
+  }
+  const okUser = safeEqual(username, envUsername);
+  const okPass = safeEqual(password, envPassword);
   return okUser && okPass;
+}
+
+/** Username admin yang berlaku saat ini (untuk prefill form). */
+export async function getCurrentUsername(): Promise<string> {
+  const { username } = await resolveCredState();
+  return username;
 }
 
 export async function createSession(): Promise<void> {
   const store = await cookies();
-  store.set(COOKIE_NAME, makeToken(Date.now() + MAX_AGE * 1000), {
+  store.set(COOKIE_NAME, await makeToken(Date.now() + MAX_AGE * 1000), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

@@ -2,27 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
 import { MobileDrawer } from "./MobileDrawer";
 import { SmartLink } from "./SmartLink";
 import { dropdowns, simpleLinks } from "@/lib/content/nav";
 import type { SiteSettings, ExternalLink } from "@/lib/store";
-
-function HouseLogo() {
-  return (
-    <svg
-      className="size-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 10.5 12 3l9 7.5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 9.5V20h14V9.5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 20v-5h5v5" />
-    </svg>
-  );
-}
 
 export function Navbar({
   site,
@@ -61,6 +46,27 @@ export function Navbar({
             <Link href="/profil/demografi" className="hover:text-white">
               Statistik Desa
             </Link>
+            <span className="text-primary-50/30">|</span>
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center gap-1.5 hover:text-white"
+            >
+              <svg
+                className="size-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 15l3-3m0 0-3-3m3 3H9"
+                />
+              </svg>
+              Login Admin
+            </Link>
           </div>
         </div>
       </div>
@@ -71,9 +77,14 @@ export function Navbar({
           <div className="flex h-18 items-center justify-between gap-4 py-3">
             {/* Logo / Brand */}
             <Link href="/" className="flex shrink-0 items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-xl bg-primary-700 text-white shadow-soft">
-                <HouseLogo />
-              </span>
+              <Image
+                src="/logos/logo-sragen.png"
+                alt={`Logo ${site.name}`}
+                width={44}
+                height={44}
+                priority
+                className="size-11 shrink-0 object-contain"
+              />
               <span className="leading-tight">
                 <span className="block text-base font-bold text-ink">
                   {site.name}
