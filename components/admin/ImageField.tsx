@@ -7,10 +7,13 @@ export function ImageField({
   name,
   label,
   defaultValue,
+  allowManualPath = true,
 }: {
   name: string;
   label: string;
   defaultValue?: string;
+  /** Tampilkan kolom path manual. Matikan bila hanya boleh unggah berkas. */
+  allowManualPath?: boolean;
 }) {
   const [url, setUrl] = useState(defaultValue ?? "");
   const [uploading, setUploading] = useState(false);
@@ -95,13 +98,15 @@ export function ImageField({
       </div>
 
       {/* Path manual (opsional) */}
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="/uploads/... atau /images/..."
-        className={`${inputClass} mt-2 text-sm`}
-      />
+      {allowManualPath && (
+        <input
+          type="text"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="/uploads/... atau /images/..."
+          className={`${inputClass} mt-2 text-sm`}
+        />
+      )}
 
       {error && (
         <p className="mt-1 text-xs font-medium text-red-600 dark:text-red-400">

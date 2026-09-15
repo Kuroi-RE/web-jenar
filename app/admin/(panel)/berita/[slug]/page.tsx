@@ -19,7 +19,7 @@ export default async function BeritaEditPage({
   }
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <Link
         href="/admin/berita"
         className="text-sm font-medium text-ink-soft transition hover:text-primary-700 dark:hover:text-primary-300"

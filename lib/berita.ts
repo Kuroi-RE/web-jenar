@@ -1,24 +1,6 @@
 import "server-only";
-import { Marked } from "marked";
 import { query, ensureSchema } from "@/lib/db";
-
-// Instance marked yang di-hardening:
-//  - Membuang raw HTML dari Markdown (renderer.html => "") → cegah <script>, dll.
-//  - Membatasi protokol tautan (hanya http/https/mailto/tel/relatif/anchor).
-const md = new Marked({ gfm: true });
-md.use({
-  walkTokens(token) {
-    if (token.type === "link" || token.type === "image") {
-      const href = String(token.href ?? "").trim();
-      if (!/^(https?:|mailto:|tel:|\/|#)/i.test(href)) {
-        token.href = "#";
-      }
-    }
-  },
-  renderer: {
-    html: () => "",
-  },
-});
+import { renderMarkdown } from "@/lib/markdown";
 
 export type BeritaMeta = {
   slug: string;
@@ -137,7 +119,7 @@ export async function getBeritaBySlug(
     );
     const row = rows[0];
     if (!row) return null;
-    const contentHtml = await md.parse(row.body);
+    const contentHtml = await renderMarkdown(row.body);
     return { ...rowToMeta(row), contentHtml };
   } catch (err) {
     console.error("[berita] getBeritaBySlug gagal:", err);

@@ -1,8 +1,10 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useMemo, useState } from "react";
 import Link from "next/link";
 import type { BeritaFormState } from "@/lib/admin/berita-actions";
+import { renderMarkdownSync } from "@/lib/markdown";
+import { ImageField } from "./ImageField";
 
 type Action = (
   prev: BeritaFormState,
@@ -38,6 +40,39 @@ export function BeritaForm({
   const [state, formAction, pending] = useActionState<BeritaFormState, FormData>(
     action,
     {},
+  );
+
+  // Isi Markdown dijadikan state agar pratinjau ikut berubah saat diketik.
+  const [body, setBody] = useState(values.body ?? "");
+  // Pratinjau di layar kecil ditampilkan lewat tombol; di desktop selalu tampil.
+  const [showPreview, setShowPreview] = useState(false);
+
+  // Dirender dengan util yang sama seperti halaman publik, jadi hasilnya identik
+  // (raw HTML dibuang, protokol tautan dibatasi).
+  const html = useMemo(() => renderMarkdownSync(body), [body]);
+
+  const previewPane = (
+    <div className="rounded-2xl border border-black/5 bg-surface p-5 shadow-soft dark:border-white/10">
+      <div className="mb-3 flex items-center justify-between border-b border-black/5 pb-2 dark:border-white/10">
+        <span className="text-xs font-semibold uppercase tracking-wide text-ink-soft">
+          Pratinjau
+        </span>
+        <span className="text-xs text-ink-soft">
+          {body.trim().length === 0 ? "belum ada isi" : `${body.length} karakter`}
+        </span>
+      </div>
+      {body.trim().length === 0 ? (
+        <p className="text-sm text-ink-soft">
+          Tulis isi berita untuk melihat pratinjaunya di sini.
+        </p>
+      ) : (
+        <div
+          className="prose-desa max-w-none"
+          // Aman: HTML berasal dari renderMarkdownSync yang membuang raw HTML.
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+    </div>
   );
 
   return (
@@ -116,22 +151,12 @@ export function BeritaForm({
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label htmlFor="image" className={labelClass}>
-            Path Gambar
-          </label>
-          <input
-            id="image"
-            name="image"
-            type="text"
-            placeholder="/images/hero/slide-1.jpeg"
-            defaultValue={values.image}
-            className={inputClass}
-          />
-          <p className="mt-1 text-xs text-ink-soft">
-            Path relatif ke folder <code className="font-mono">public/</code>.
-          </p>
-        </div>
+        <ImageField
+          name="image"
+          label="Gambar Berita"
+          defaultValue={values.image}
+          allowManualPath={false}
+        />
         <div>
           <label htmlFor="imageAlt" className={labelClass}>
             Teks Alternatif Gambar
@@ -143,6 +168,10 @@ export function BeritaForm({
             defaultValue={values.imageAlt}
             className={inputClass}
           />
+          <p className="mt-1 text-xs text-ink-soft">
+            Jelaskan isi foto secara singkat, mis. &ldquo;Camat menyerahkan
+            dokumen kepada warga&rdquo;.
+          </p>
         </div>
       </div>
 
@@ -160,35 +189,79 @@ export function BeritaForm({
         />
       </div>
 
-      <div>
-        <label htmlFor="body" className={labelClass}>
-          Isi Berita (Markdown) <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          id="body"
-          name="body"
-          required
-          rows={16}
-          defaultValue={values.body}
-          className={`${inputClass} font-mono text-sm`}
-          placeholder={"## Sub Judul\n\nTulis isi berita di sini. Dukung **tebal**, _miring_, daftar, dan > kutipan."}
-        />
-        <p className="mt-1 text-xs text-ink-soft">
-          Format Markdown: <code className="font-mono">##</code> judul,{" "}
-          <code className="font-mono">**tebal**</code>,{" "}
-          <code className="font-mono">- daftar</code>,{" "}
-          <code className="font-mono">&gt; kutipan</code>.
-        </p>
+      {/* Editor + pratinjau: dua kolom di desktop, satu kolom di layar kecil. */}
+      <div className="grid gap-5 lg:grid-cols-2">
+        <div>
+          <label htmlFor="body" className={labelClass}>
+            Isi Berita (Markdown) <span className="text-red-500">*</span>
+          </label>
+          <textarea
+            id="body"
+            name="body"
+            required
+            rows={18}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            className={`${inputClass} font-mono text-sm`}
+            placeholder={
+              "## Sub Judul\n\nTulis isi berita di sini. Dukung **tebal**, _miring_, daftar, dan > kutipan."
+            }
+          />
+          <p className="mt-1 text-xs text-ink-soft">
+            Format Markdown: <code className="font-mono">##</code> judul,{" "}
+            <code className="font-mono">**tebal**</code>,{" "}
+            <code className="font-mono">- daftar</code>,{" "}
+            <code className="font-mono">&gt; kutipan</code>.
+          </p>
+        </div>
+
+        {/* Desktop: pratinjau menempel di kanan dan ikut menggulir. */}
+        <div className="hidden lg:block">
+          <span className={labelClass}>Hasil Tampilan</span>
+          <div className="mt-1.5 lg:sticky lg:top-24">{previewPane}</div>
+        </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      {/* Layar kecil: pratinjau muncul saat tombol ditekan. */}
+      {showPreview && <div className="lg:hidden">{previewPane}</div>}
+
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="submit"
           disabled={pending}
           className="btn-primary disabled:opacity-60"
         >
-          {pending ? "Menyimpan…" : mode === "create" ? "Terbitkan" : "Simpan Perubahan"}
+          {pending
+            ? "Menyimpan…"
+            : mode === "create"
+              ? "Terbitkan"
+              : "Simpan Perubahan"}
         </button>
+
+        <button
+          type="button"
+          onClick={() => setShowPreview((v) => !v)}
+          aria-expanded={showPreview}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-black/5 lg:hidden dark:border-white/15 dark:hover:bg-white/10"
+        >
+          <svg
+            className="size-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          {showPreview ? "Tutup Pratinjau" : "Pratinjau"}
+        </button>
+
         <Link
           href="/admin/berita"
           className="rounded-lg border border-black/10 px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/10"
