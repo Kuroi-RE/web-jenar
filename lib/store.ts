@@ -189,9 +189,9 @@ const defaults: Settings = {
   ],
   tentang: {
     paragraf1:
-      "Desa Sidoharjo merupakan salah satu dari 208 desa/kelurahan di wilayah Kabupaten Sragen, Provinsi Jawa Tengah, dan termasuk salah satu dari 12 desa di Kecamatan Sidoharjo.",
+      "Desa Jenar merupakan salah satu dari 208 desa/kelurahan di wilayah Kabupaten Sragen, Provinsi Jawa Tengah, dan termasuk salah satu dari 12 desa di Kecamatan Jenar.",
     paragraf2:
-      "Sebagai desa yang terus berkembang, Pemerintah Desa Sidoharjo berkomitmen memberikan pelayanan publik yang transparan, cepat, dan bebas korupsi — serta mendorong keterbukaan informasi bagi seluruh warga masyarakat.",
+      "Sebagai desa yang terus berkembang, Pemerintah Desa Jenar berkomitmen memberikan pelayanan publik yang transparan, cepat, dan bebas korupsi — serta mendorong keterbukaan informasi bagi seluruh warga masyarakat.",
     quickFacts: [
       { value: "4.089", label: "Jumlah Penduduk" },
       { value: "12", label: "Desa se-Kecamatan" },
@@ -200,7 +200,7 @@ const defaults: Settings = {
   },
   hero: {
     eyebrow: "Website Resmi",
-    subtitle: "Kecamatan Sidoharjo, Kabupaten Sragen",
+    subtitle: "Kecamatan Jenar, Kabupaten Sragen",
     description:
       "Portal layanan publik desa yang transparan, melayani, dan bebas korupsi. Akses informasi, layanan administrasi, dan pengaduan masyarakat dalam satu tempat.",
     slides: defaultHeroSlides.map((s) => ({ img: s.img, alt: s.alt })),

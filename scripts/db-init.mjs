@@ -51,7 +51,16 @@ async function createTables() {
         ON UPDATE CURRENT_TIMESTAMP
     );
   `);
-  console.log("✓ Tabel site_settings & berita siap.");
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS admin_credentials (
+      id INT PRIMARY KEY,
+      username VARCHAR(150) NOT NULL,
+      password_hash VARCHAR(255) NOT NULL,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+    );
+  `);
+  console.log("✓ Tabel site_settings, berita & admin_credentials siap.");
 }
 
 function toIso(value) {

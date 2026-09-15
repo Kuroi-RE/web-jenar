@@ -2,18 +2,18 @@
   "site": {
     "name": "Desa Jenar",
     "legalName": "Pemerintah Desa Jenar",
-    "tagline": "Kec. Sidoharjo, Kab. Sragen",
-    "region": "Kecamatan Sidoharjo, Kabupaten Sragen, Jawa Tengah",
+    "tagline": "Kec. Jenar, Kab. Sragen",
+    "region": "Kecamatan Jenar, Kabupaten Sragen, Jawa Tengah",
     "slogan": "Pelayanan Umum Gratis",
     "url": "https://jenar.sragenkab.go.id",
     "email": "jenar.sragen@gmail.com",
     "phone": "0813-9301-1650",
     "phoneIntl": "+6281393011650",
-    "address": "Jl. Pungkruk – Tanon, Km. 1, Dk. Sidoharjo RT 3, Sidoharjo, Sragen, Jawa Tengah 57281",
+    "address": "Jl. Pungkruk – Tanon, Km. 1, Dk. Jenar RT 3, Jenar, Sragen, Jawa Tengah 57281",
     "links": {
-      "aduan": "http://bit.ly/PengaduanSidoharjo",
-      "skm": "https://bit.ly/SKMDesaSidoharjo",
-      "spak": "https://bit.ly/SPAKDesaSidoharjo"
+      "aduan": "http://bit.ly/PengaduanJenar",
+      "skm": "https://bit.ly/SKMDesaJenar",
+      "spak": "https://bit.ly/SPAKDesaJenar"
     },
     "social": {
       "facebook": "#",
@@ -39,8 +39,8 @@
     }
   ],
   "tentang": {
-    "paragraf1": "Desa Sidoharjo merupakan salah satu dari 208 desa/kelurahan di wilayah Kabupaten Sragen, Provinsi Jawa Tengah, dan termasuk salah satu dari 12 desa di Kecamatan Sidoharjo.",
-    "paragraf2": "Sebagai desa yang terus berkembang, Pemerintah Desa Sidoharjo berkomitmen memberikan pelayanan publik yang transparan, cepat, dan bebas korupsi — serta mendorong keterbukaan informasi bagi seluruh warga masyarakat.",
+    "paragraf1": "Desa Jenar merupakan salah satu dari 208 desa/kelurahan di wilayah Kabupaten Sragen, Provinsi Jawa Tengah, dan termasuk salah satu dari 12 desa di Kecamatan Jenar.",
+    "paragraf2": "Sebagai desa yang terus berkembang, Pemerintah Desa Jenar berkomitmen memberikan pelayanan publik yang transparan, cepat, dan bebas korupsi — serta mendorong keterbukaan informasi bagi seluruh warga masyarakat.",
     "quickFacts": [
       {
         "value": "4.089",
