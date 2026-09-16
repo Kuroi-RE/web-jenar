@@ -1,7 +1,12 @@
 import "server-only";
+import { isTurnstileEnabled } from "@/lib/turnstile-config";
 
 // Verifikasi token Cloudflare Turnstile (anti-bot pada form login admin).
 // Dokumentasi: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+//
+// Dapat dimatikan lewat `NEXT_PUBLIC_TURNSTILE_ENABLED=false` (lihat
+// lib/turnstile-config.ts). Bila dimatikan, satu-satunya pelindung login yang
+// tersisa adalah rate limit 5 percobaan / 5 menit / IP di loginAction.
 
 const VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -26,12 +31,20 @@ export async function verifyTurnstile(
   token: string,
   ip?: string,
 ): Promise<TurnstileResult> {
-  // Di-trim: spasi/CR di ujung nilai env (umum saat edit .env lewat FTP)
-  // akan membuat Cloudflare menolak dengan `invalid-input-secret`.
+  // Saklar mati → lewati verifikasi sepenuhnya (tetap dicatat di log agar
+  // tidak terlupakan bahwa perlindungan sedang nonaktif).
+  if (!isTurnstileEnabled()) {
+    console.warn(
+      "[turnstile] DIMATIKAN via NEXT_PUBLIC_TURNSTILE_ENABLED — login tanpa verifikasi anti-bot.",
+    );
+    return { ok: true };
+  }
+
   const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
   if (!secret) {
     console.error(
-      "[turnstile] TURNSTILE_SECRET_KEY belum diset — verifikasi ditolak.",
+      "[turnstile] TURNSTILE_SECRET_KEY belum diset — verifikasi ditolak. " +
+        "Isi kunci tersebut, atau matikan verifikasi dengan NEXT_PUBLIC_TURNSTILE_ENABLED=false.",
     );
     return { ok: false, codes: ["missing-input-secret"] };
   }

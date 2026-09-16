@@ -4,12 +4,14 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { useTheme } from "next-themes";
 import { loginAction, type LoginState } from "@/lib/admin/auth-actions";
+import { isTurnstileEnabled, turnstileSitekey } from "@/lib/turnstile-config";
 
 const initial: LoginState = {};
 
-// Nilai env di-trim: spasi/CR di ujung (umum terjadi saat mengedit .env lewat
-// editor teks atau FTP) akan ditolak Turnstile dengan pesan yang membingungkan.
-const SITEKEY = process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY?.trim();
+// Dibaca saat kompilasi untuk bundel klien; nilainya sama dengan yang dipakai
+// server (lib/turnstile-config.ts), jadi keduanya tak mungkin berbeda.
+const TURNSTILE_AKTIF = isTurnstileEnabled();
+const SITEKEY = turnstileSitekey();
 
 // Subset API Turnstile yang dipakai di sini.
 type TurnstileApi = {
@@ -56,6 +58,7 @@ export function LoginForm() {
   // PENTING: menunggu `resolvedTheme` terisi — bila dirender lebih dulu lalu
   // langsung diganti, tantangan yang sedang berjalan batal dan token tak terbit.
   useEffect(() => {
+    if (!TURNSTILE_AKTIF) return;
     if (!scriptReady || !mounted || !SITEKEY || !resolvedTheme) return;
     const theme = resolvedTheme === "dark" ? "dark" : "light";
     if (renderedTheme.current === theme) return;
@@ -87,7 +90,7 @@ export function LoginForm() {
 
   return (
     <form action={formAction} className="space-y-5">
-      {SITEKEY && (
+      {TURNSTILE_AKTIF && SITEKEY && (
         <Script
           src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
           strategy="afterInteractive"
@@ -138,8 +141,9 @@ export function LoginForm() {
         />
       </div>
 
-      {/* Verifikasi keamanan (Cloudflare Turnstile) */}
-      {SITEKEY ? (
+      {/* Verifikasi keamanan (Cloudflare Turnstile).
+          Dimatikan sepenuhnya bila NEXT_PUBLIC_TURNSTILE_ENABLED=false. */}
+      {!TURNSTILE_AKTIF ? null : SITEKEY ? (
         <div>
           <span className="block text-sm font-semibold text-ink">
             Verifikasi Keamanan
@@ -155,7 +159,8 @@ export function LoginForm() {
         <p className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-900/50 dark:bg-amber-900/20 dark:text-amber-200">
           Verifikasi keamanan belum dikonfigurasi
           (<code className="font-mono">NEXT_PUBLIC_TURNSTILE_SITEKEY</code>).
-          Hubungi pengelola teknis.
+          Hubungi pengelola teknis, atau matikan sementara dengan{" "}
+          <code className="font-mono">NEXT_PUBLIC_TURNSTILE_ENABLED=false</code>.
         </p>
       )}
 

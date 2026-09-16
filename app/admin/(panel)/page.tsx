@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getBeritaSlugs } from "@/lib/berita";
 import { getSettings } from "@/lib/store";
+import { isTurnstileEnabled } from "@/lib/turnstile-config";
 
 export const dynamic = "force-dynamic";
 
@@ -66,6 +67,24 @@ export default async function DashboardPage() {
         <span className="font-semibold text-ink">{site.name}</span>. Semua isi
         website dapat Anda ubah dari menu di sisi kiri.
       </p>
+
+      {/* Pengingat: verifikasi anti-bot login sedang dimatikan. */}
+      {!isTurnstileEnabled() && (
+        <div
+          role="status"
+          className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-5 dark:border-amber-900/50 dark:bg-amber-900/20"
+        >
+          <p className="font-bold text-amber-900 dark:text-amber-200">
+            Verifikasi keamanan login sedang nonaktif
+          </p>
+          <p className="mt-1 text-sm text-ink-soft">
+            Halaman login berjalan tanpa Cloudflare Turnstile karena{" "}
+            <code className="font-mono">NEXT_PUBLIC_TURNSTILE_ENABLED=false</code>.
+            Pelindung yang tersisa hanya pembatasan 5 percobaan per 5 menit per
+            alamat IP. Aktifkan kembali setelah kendala teknis selesai.
+          </p>
+        </div>
+      )}
 
       {/* Panduan langkah pertama */}
       <div className="mt-6 rounded-2xl border border-primary-200 bg-primary-50 p-5 dark:border-primary-900/50 dark:bg-primary-900/20">
