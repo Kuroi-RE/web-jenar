@@ -21,6 +21,7 @@ export type {
   KategoriInfoS,
   PpidSettings,
   ProdukHukumS,
+  SakipItemS,
   GaleriItemS,
   SopLangkahS,
   PersyaratanLayananS,
@@ -90,6 +91,7 @@ export async function getSettings(): Promise<Settings> {
         saved.produkHukum && saved.produkHukum.length > 0
           ? saved.produkHukum
           : defaults.produkHukum,
+      sakip: saved.sakip ?? defaults.sakip,
       galeri:
         saved.galeri && saved.galeri.length > 0
           ? saved.galeri

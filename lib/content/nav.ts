@@ -39,6 +39,7 @@ export const dropdowns: NavDropdown[] = [
       { label: "Tugas & Fungsi PPID", href: "/ppid#tugas" },
       { label: "Dasar Hukum", href: "/ppid#dasar-hukum" },
       { label: "Data & Informasi Publik", href: "/ppid#data" },
+      { label: "SAKIP", href: "/ppid/sakip" },
     ],
   },
 ];
@@ -79,6 +80,7 @@ export const mobileGroups: NavDropdown[] = [
       { label: "Profil PPID", href: "/ppid#profil" },
       { label: "Struktur PPID", href: "/ppid#struktur" },
       { label: "Data & Informasi", href: "/ppid#data" },
+      { label: "SAKIP", href: "/ppid/sakip" },
     ],
   },
 ];

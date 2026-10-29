@@ -43,6 +43,11 @@ const cards = [
   },
   { href: "/admin/ppid", title: "PPID", desc: "Keterbukaan informasi publik." },
   {
+    href: "/admin/sakip",
+    title: "SAKIP",
+    desc: "Upload dan kelola dokumen SAKIP.",
+  },
+  {
     href: "/admin/produk-hukum",
     title: "Produk Hukum",
     desc: "Keputusan Camat, surat edaran, & SOP.",

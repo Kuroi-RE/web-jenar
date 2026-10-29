@@ -14,6 +14,7 @@ const navItems = [
   { href: "/admin/statistik", label: "Statistik" },
   { href: "/admin/profil", label: "Profil" },
   { href: "/admin/ppid", label: "PPID" },
+  { href: "/admin/sakip", label: "SAKIP" },
   { href: "/admin/produk-hukum", label: "Produk Hukum" },
   { href: "/admin/galeri", label: "Galeri" },
   { href: "/admin/pengaturan", label: "Pengaturan Umum" },
@@ -32,22 +33,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-black/5 bg-surface/90 backdrop-blur dark:border-white/10">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link href="/admin" className="flex items-center gap-2.5">
-            {/*<span className="grid size-9 place-items-center rounded-lg bg-primary-700 text-white">
-              <svg
-                className="size-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 10.5 12 3l9 7.5M5 9.5V20h14V9.5"
-                />
-              </svg>
-            </span>*/}
             <span className="font-bold text-ink">Admin Management</span>
           </Link>
 

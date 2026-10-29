@@ -40,6 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+plan
+
 AGENTS.md
 
 MIGRATION_PLAN.md
@@ -55,3 +57,5 @@ docker-compose.yml
 
 # Foto yang diunggah lewat panel admin (runtime)
 /public/uploads/
+
+PANDUAN_UPLOAD_FILEZILLA.md

@@ -36,6 +36,7 @@ import {
   ppidDataInformasi as defPpidDataInformasi,
 } from "./ppid.ts";
 import { produkHukum as defProdukHukum } from "./produk-hukum.ts";
+import { sakipDokumen as defSakip } from "./sakip.ts";
 import { galeriItems as defGaleri } from "./galeri.ts";
 
 export type SiteSettings = {
@@ -120,6 +121,11 @@ export type ProdukHukumS = {
   href: string;
 };
 
+export type SakipItemS = {
+  nama: string;
+  href: string;
+};
+
 export type GaleriItemS = {
   src: string;
   judul: string;
@@ -149,6 +155,7 @@ export type Settings = {
   profil: ProfilSettings;
   ppid: PpidSettings;
   produkHukum: ProdukHukumS[];
+  sakip: SakipItemS[];
   galeri: GaleriItemS[];
   layananDetail: LayananDetailSettings;
 };
@@ -237,6 +244,10 @@ export const defaultSettings: Settings = {
     tahun: p.tahun,
     tentang: p.tentang,
     href: p.href ?? "",
+  })),
+  sakip: defSakip.map((s) => ({
+    nama: s.nama,
+    href: s.href ?? "",
   })),
   galeri: defGaleri.map((g) => ({
     src: g.src,

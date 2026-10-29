@@ -12,6 +12,7 @@ import {
   type PpidStrukturS,
   type KategoriInfoS,
   type ProdukHukumS,
+  type SakipItemS,
   type GaleriItemS,
   type SopLangkahS,
   type PersyaratanLayananS,
@@ -221,6 +222,34 @@ export async function saveProdukHukumAction(
   return persist({
     ...current,
     produkHukum: items.length > 0 ? items : current.produkHukum,
+  });
+}
+
+/** SAKIP: daftar dokumen akuntabilitas kinerja. */
+export async function saveSakipAction(
+  _prev: KontenFormState,
+  formData: FormData,
+): Promise<KontenFormState> {
+  await requireAuth();
+  const current = await getSettings();
+
+  const items: SakipItemS[] = [];
+  for (let i = 0; i < MAX_ROWS; i += 1) {
+    const nama = str(formData, `sakip_nama_${i}`);
+    const href = str(formData, `sakip_href_${i}`);
+    if (!nama && !href) continue;
+    if (!nama) {
+      return { error: `Baris dokumen ke-${i + 1}: Nama dokumen wajib diisi.` };
+    }
+    if (!href) {
+      return { error: `Dokumen "${nama}": File PDF wajib diunggah.` };
+    }
+    items.push({ nama, href });
+  }
+
+  return persist({
+    ...current,
+    sakip: items,
   });
 }
 

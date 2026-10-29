@@ -24,6 +24,7 @@ const staticRoutes: {
   { path: "/layanan", changeFrequency: "monthly", priority: 0.9 },
   { path: "/pengaduan", changeFrequency: "monthly", priority: 0.8 },
   { path: "/ppid", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/ppid/sakip", changeFrequency: "monthly", priority: 0.7 },
   { path: "/produk-hukum", changeFrequency: "monthly", priority: 0.7 },
   { path: "/berita", changeFrequency: "weekly", priority: 0.8 },
   { path: "/galeri", changeFrequency: "monthly", priority: 0.6 },

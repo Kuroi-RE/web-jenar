@@ -8,10 +8,21 @@ import { UPLOAD_DIR } from "@/lib/uploads";
 
 export const dynamic = "force-dynamic";
 
-const MAX_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_DOC_BYTES = 10 * 1024 * 1024; // 10MB
 
-/** Deteksi tipe gambar dari magic bytes (bukan dari header yang dikirim klien). */
-function sniffImageExt(buf: Buffer): "jpg" | "png" | "gif" | "webp" | null {
+/** Deteksi tipe file dari magic bytes (bukan dari header yang dikirim klien). */
+function sniffFileExt(buf: Buffer): "jpg" | "png" | "gif" | "webp" | "pdf" | null {
+  if (
+    buf.length >= 5 &&
+    buf[0] === 0x25 &&
+    buf[1] === 0x50 &&
+    buf[2] === 0x44 &&
+    buf[3] === 0x46 &&
+    buf[4] === 0x2d
+  ) {
+    return "pdf";
+  }
   if (buf.length >= 3 && buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) {
     return "jpg";
   }
@@ -66,9 +77,9 @@ export async function POST(request: Request) {
   if (file.size === 0) {
     return NextResponse.json({ error: "File kosong." }, { status: 400 });
   }
-  if (file.size > MAX_BYTES) {
+  if (file.size > MAX_DOC_BYTES) {
     return NextResponse.json(
-      { error: "Ukuran gambar maksimal 5MB." },
+      { error: "Ukuran file melebihi batas maksimal (10MB)." },
       { status: 400 },
     );
   }
@@ -76,10 +87,17 @@ export async function POST(request: Request) {
   const bytes = Buffer.from(await file.arrayBuffer());
 
   // Validasi berdasarkan isi file (magic bytes), bukan Content-Type klien.
-  const ext = sniffImageExt(bytes);
+  const ext = sniffFileExt(bytes);
   if (!ext) {
     return NextResponse.json(
-      { error: "File bukan gambar valid (JPG, PNG, WEBP, atau GIF)." },
+      { error: "File bukan berkas valid (hanya JPG, PNG, WEBP, GIF, atau PDF)." },
+      { status: 400 },
+    );
+  }
+
+  if (ext !== "pdf" && file.size > MAX_IMAGE_BYTES) {
+    return NextResponse.json(
+      { error: "Ukuran gambar maksimal 5MB." },
       { status: 400 },
     );
   }
