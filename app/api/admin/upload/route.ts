@@ -4,6 +4,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { isAuthenticated } from "@/lib/auth";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { UPLOAD_DIR } from "@/lib/uploads";
 
 export const dynamic = "force-dynamic";
 
@@ -83,7 +84,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const dir = path.join(process.cwd(), "public", "uploads");
+  const dir = UPLOAD_DIR;
   await fs.mkdir(dir, { recursive: true });
   // Nama file acak (tanpa memakai nama dari pengguna → cegah path traversal).
   const filename = `${Date.now()}-${crypto.randomBytes(8).toString("hex")}.${ext}`;
